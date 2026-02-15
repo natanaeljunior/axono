@@ -20,6 +20,7 @@ export default function DashboardLayout() {
   const isRotations = location.pathname.includes('/rotacoes')
   const isPreceptors = location.pathname.includes('/preceptores')
   const isHospitals = location.pathname.includes('/hospitais')
+  const isParams = location.pathname.includes('/parametros')
   const breadcrumb = isStudents
     ? t('students.breadcrumb')
     : isGroups
@@ -30,7 +31,9 @@ export default function DashboardLayout() {
           ? t('preceptors.breadcrumb')
           : isHospitals
             ? t('hospitals.breadcrumb')
-            : t('dashboard.breadcrumb')
+            : isParams
+              ? t('params.breadcrumb')
+              : t('dashboard.breadcrumb')
 
   return (
     <div className="dashboard-layout">
@@ -59,7 +62,7 @@ export default function DashboardLayout() {
         </div>
         <nav className="dashboard-nav">
           <NavLink
-            to="/dashboard"
+            to="/dashboard/parametros"
             className={({ isActive }) =>
               `dashboard-nav-item ${isActive ? 'dashboard-nav-item--active' : ''}`
             }
@@ -78,30 +81,56 @@ export default function DashboardLayout() {
       </aside>
 
       <main className="dashboard-main">
-        <header className="dashboard-header">
-          <h1 className="dashboard-breadcrumb">{breadcrumb}</h1>
+        <header className={`dashboard-header ${isParams ? 'dashboard-header--params' : ''}`}>
+          <div className="dashboard-header-left">
+            <h1 className="dashboard-breadcrumb">{breadcrumb}</h1>
+            {isParams && (
+              <>
+                <span className="dashboard-header-divider" aria-hidden />
+                <span className="dashboard-header-context">
+                  <span className="material-icons dashboard-header-context-icon">admin_panel_settings</span>
+                  {t('params.adminAccess')}
+                </span>
+              </>
+            )}
+          </div>
           <div className="dashboard-header-actions">
-            <div className="dashboard-search-wrap">
-              <span className="material-icons dashboard-search-icon">search</span>
-              <input
-                type="search"
-                className="dashboard-search"
-                placeholder={t('dashboard.searchPlaceholder')}
-                aria-label={t('dashboard.searchPlaceholder')}
-              />
-            </div>
-            <button type="button" className="dashboard-icon-btn dashboard-icon-btn--badge" aria-label={t('dashboard.notifications')}>
-              <span className="material-icons">notifications</span>
-            </button>
-            <div className="dashboard-cycle-select-wrap">
-              <select className="dashboard-cycle-select" aria-label={t('dashboard.cycle')}>
-                <option>{t('dashboard.cycleValue')}</option>
-              </select>
-              <span className="material-icons dashboard-cycle-arrow">expand_more</span>
-            </div>
+            {isParams ? (
+              <>
+                <button type="button" className="dashboard-btn dashboard-btn--secondary dashboard-btn--header">
+                  {t('params.cancel')}
+                </button>
+                <button type="button" className="dashboard-btn dashboard-btn--primary dashboard-btn--header">
+                  {t('params.saveChanges')}
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="dashboard-search-wrap">
+                  <span className="material-icons dashboard-search-icon">search</span>
+                  <input
+                    type="search"
+                    className="dashboard-search"
+                    placeholder={t('dashboard.searchPlaceholder')}
+                    aria-label={t('dashboard.searchPlaceholder')}
+                  />
+                </div>
+                <button type="button" className="dashboard-icon-btn dashboard-icon-btn--badge" aria-label={t('dashboard.notifications')}>
+                  <span className="material-icons">notifications</span>
+                </button>
+                <div className="dashboard-cycle-select-wrap">
+                  <select className="dashboard-cycle-select" aria-label={t('dashboard.cycle')}>
+                    <option>{t('dashboard.cycleValue')}</option>
+                  </select>
+                  <span className="material-icons dashboard-cycle-arrow">expand_more</span>
+                </div>
+              </>
+            )}
           </div>
         </header>
-        <Outlet />
+        <div className={isParams ? 'dashboard-main-outlet dashboard-main-outlet--params' : 'dashboard-main-outlet'}>
+          <Outlet />
+        </div>
       </main>
     </div>
   )
