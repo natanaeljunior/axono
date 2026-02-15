@@ -5,6 +5,7 @@ import FirstAccess from './pages/FirstAccess'
 import DashboardLayout from './layouts/DashboardLayout'
 import DashboardHome from './pages/DashboardHome'
 import Students from './pages/Students'
+import Groups from './pages/Groups'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<DashboardHome />} />
         <Route path="alunos" element={<Students />} />
+        <Route path="grupos" element={<Groups />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>

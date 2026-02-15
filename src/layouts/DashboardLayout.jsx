@@ -5,7 +5,7 @@ import '../pages/Dashboard.css'
 const NAV_ITEMS = [
   { key: 'dashboard', icon: 'dashboard', path: '/dashboard' },
   { key: 'students', icon: 'school', path: '/dashboard/alunos' },
-  { key: 'groups', icon: 'groups', path: '/dashboard' },
+  { key: 'groups', icon: 'groups', path: '/dashboard/grupos' },
   { key: 'preceptors', icon: 'medical_services', path: '/dashboard' },
   { key: 'hospitals', icon: 'local_hospital', path: '/dashboard' },
   { key: 'rotations', icon: 'calendar_month', path: '/dashboard' },
@@ -16,7 +16,12 @@ export default function DashboardLayout() {
   const { t } = useTranslation()
   const location = useLocation()
   const isStudents = location.pathname.includes('/alunos')
-  const breadcrumb = isStudents ? t('students.breadcrumb') : t('dashboard.breadcrumb')
+  const isGroups = location.pathname.includes('/grupos')
+  const breadcrumb = isStudents
+    ? t('students.breadcrumb')
+    : isGroups
+      ? t('groups.breadcrumb')
+      : t('dashboard.breadcrumb')
 
   return (
     <div className="dashboard-layout">
