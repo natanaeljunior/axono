@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import LanguageSwitcher from '../components/LanguageSwitcher'
 import './Login.css'
 
 export default function Login({ onForgotPassword }) {
+  const { t } = useTranslation()
   const [showPassword, setShowPassword] = useState(false)
   const [rememberMe, setRememberMe] = useState(false)
 
@@ -12,7 +15,6 @@ export default function Login({ onForgotPassword }) {
 
   return (
     <div className="login-page">
-      {/* Background - design system */}
       <div className="login-bg" aria-hidden>
         <div className="login-bg-base" />
         <div className="login-bg-pattern" />
@@ -25,20 +27,22 @@ export default function Login({ onForgotPassword }) {
 
       <main className="login-main">
         <div className="login-card">
-          {/* Brand: logo + wordmark integrados (fonte da marca) */}
+          <div className="login-card-header">
+            <span />
+            <LanguageSwitcher />
+          </div>
           <div className="login-brand">
             <div className="login-brand-lockup">
               <img src="/logo.svg" alt="" className="login-brand-logo" width="48" height="48" />
-              <span className="login-brand-wordmark">ResidencyFlow</span>
+              <span className="login-brand-wordmark">{t('common.brandName')}</span>
             </div>
-            <h1>Portal do Internato</h1>
-            <p>Plataforma de Gestão Médica Acadêmica</p>
+            <h1>{t('login.title')}</h1>
+            <p>{t('login.subtitle')}</p>
           </div>
 
-          {/* Formulário */}
           <form className="login-form" onSubmit={handleSubmit}>
             <div className="login-field">
-              <label htmlFor="identifier">E-mail, matrícula ou CRM</label>
+              <label htmlFor="identifier">{t('login.identifierLabel')}</label>
               <div className="login-input-wrap">
                 <span className="material-icons">badge</span>
                 <input
@@ -46,19 +50,17 @@ export default function Login({ onForgotPassword }) {
                   name="identifier"
                   type="text"
                   className="login-input"
-                  placeholder="Ex: email@faculdade.edu.br, matrícula ou CRM"
+                  placeholder={t('login.identifierPlaceholder')}
                   autoComplete="username"
                 />
               </div>
-              <p className="login-field-hint">
-                Alunos: matrícula ou e-mail · Preceptores: CRM ou e-mail · Coordenação: e-mail ou matrícula
-              </p>
+              <p className="login-field-hint">{t('login.identifierHint')}</p>
             </div>
 
             <div className="login-field">
               <div className="login-field-row">
-                <label htmlFor="password">Senha</label>
-                <a href="#" onClick={(e) => { e.preventDefault(); onForgotPassword?.(); }}>Esqueceu a senha?</a>
+                <label htmlFor="password">{t('login.passwordLabel')}</label>
+                <a href="#" onClick={(e) => { e.preventDefault(); onForgotPassword?.(); }}>{t('login.forgotPassword')}</a>
               </div>
               <div className="login-input-wrap has-toggle">
                 <span className="material-icons">lock</span>
@@ -67,14 +69,14 @@ export default function Login({ onForgotPassword }) {
                   name="password"
                   type={showPassword ? 'text' : 'password'}
                   className="login-input"
-                  placeholder="••••••••"
+                  placeholder={t('login.passwordPlaceholder')}
                   autoComplete="current-password"
                 />
                 <button
                   type="button"
                   className="login-toggle-pwd"
                   onClick={() => setShowPassword((v) => !v)}
-                  aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+                  aria-label={showPassword ? t('login.hidePassword') : t('login.showPassword')}
                 >
                   <span className="material-icons">
                     {showPassword ? 'visibility' : 'visibility_off'}
@@ -91,25 +93,25 @@ export default function Login({ onForgotPassword }) {
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
               />
-              <label htmlFor="remember-me">Manter conectado</label>
+              <label htmlFor="remember-me">{t('login.rememberMe')}</label>
             </div>
 
             <button type="submit" className="login-submit">
-              ENTRAR NO PORTAL
+              {t('login.submit')}
             </button>
           </form>
 
           <div className="login-footer">
             <p>
               <span className="material-icons">help_outline</span>
-              Precisa de ajuda?{' '}
-              <a href="#">Entre em contato com o suporte</a>
+              {t('login.needHelp')}{' '}
+              <a href="#">{t('common.contactSupport')}</a>
             </p>
           </div>
         </div>
 
         <div className="login-meta">
-          <p>© 2024 ResidencyFlow • Faculdade de Medicina • Sistema Internato v4.2.0</p>
+          <p>{t('common.meta')}</p>
         </div>
       </main>
     </div>

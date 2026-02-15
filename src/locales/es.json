@@ -1,0 +1,38 @@
+{
+  "common": {
+    "brandName": "ResidencyFlow",
+    "meta": "© 2024 ResidencyFlow • Facultad de Medicina • Sistema de Residencia v4.2.0",
+    "contactSupport": "Contacte con soporte",
+    "language": "Idioma"
+  },
+  "login": {
+    "title": "Portal de la Residencia",
+    "subtitle": "Plataforma de Gestión Médica Académica",
+    "identifierLabel": "Correo, matrícula o CRM",
+    "identifierPlaceholder": "Ej: correo@facultad.edu, matrícula o CRM",
+    "identifierHint": "Alumnos: matrícula o correo · Preceptores: CRM o correo · Coordinación: correo o matrícula",
+    "passwordLabel": "Contraseña",
+    "forgotPassword": "¿Olvidó la contraseña?",
+    "passwordPlaceholder": "••••••••",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "rememberMe": "Mantener sesión",
+    "submit": "ENTRAR AL PORTAL",
+    "needHelp": "¿Necesita ayuda?"
+  },
+  "forgot": {
+    "title": "Recuperar contraseña",
+    "subtitle": "Ingrese su correo y le enviaremos un enlace para restablecer su contraseña.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "correo@facultad.edu",
+    "submit": "Enviar enlace de recuperación",
+    "sending": "Enviando…",
+    "backToLogin": "Volver al inicio de sesión",
+    "rememberedPassword": "¿Recordó la contraseña?",
+    "doLogin": "Iniciar sesión",
+    "successTitle": "Revise su correo",
+    "successMessage": "Si el correo está registrado, recibirá un enlace para restablecer su contraseña.",
+    "sendToAnother": "Enviar a otro correo",
+    "didNotReceive": "¿No lo recibió?"
+  }
+}

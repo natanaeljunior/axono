@@ -245,6 +245,13 @@
   box-shadow: 0 28px 56px -14px rgba(0, 0, 0, 0.2);
 }
 
+.login-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem 1.5rem 0;
+}
+
 /* Header do card - entrada animada */
 .login-brand {
   padding: 2rem 2rem 1rem;

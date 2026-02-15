@@ -1,0 +1,38 @@
+{
+  "common": {
+    "brandName": "ResidencyFlow",
+    "meta": "© 2024 ResidencyFlow • Faculdade de Medicina • Sistema Internato v4.2.0",
+    "contactSupport": "Entre em contato com o suporte",
+    "language": "Idioma"
+  },
+  "login": {
+    "title": "Portal do Internato",
+    "subtitle": "Plataforma de Gestão Médica Acadêmica",
+    "identifierLabel": "E-mail, matrícula ou CRM",
+    "identifierPlaceholder": "Ex: email@faculdade.edu.br, matrícula ou CRM",
+    "identifierHint": "Alunos: matrícula ou e-mail · Preceptores: CRM ou e-mail · Coordenação: e-mail ou matrícula",
+    "passwordLabel": "Senha",
+    "forgotPassword": "Esqueceu a senha?",
+    "passwordPlaceholder": "••••••••",
+    "showPassword": "Mostrar senha",
+    "hidePassword": "Ocultar senha",
+    "rememberMe": "Manter conectado",
+    "submit": "ENTRAR NO PORTAL",
+    "needHelp": "Precisa de ajuda?"
+  },
+  "forgot": {
+    "title": "Recuperar senha",
+    "subtitle": "Informe seu e-mail e enviaremos um link para redefinir sua senha.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "nome@faculdade.edu.br",
+    "submit": "Enviar link de recuperação",
+    "sending": "Enviando…",
+    "backToLogin": "Voltar ao login",
+    "rememberedPassword": "Lembrou a senha?",
+    "doLogin": "Fazer login",
+    "successTitle": "Verifique seu e-mail",
+    "successMessage": "Se o endereço estiver cadastrado, você receberá um link para redefinir sua senha.",
+    "sendToAnother": "Enviar para outro e-mail",
+    "didNotReceive": "Não recebeu?"
+  }
+}

@@ -1,8 +1,11 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import LanguageSwitcher from '../components/LanguageSwitcher'
 import './Login.css'
 import './ForgotPassword.css'
 
 export default function ForgotPassword({ onBack }) {
+  const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -32,38 +35,42 @@ export default function ForgotPassword({ onBack }) {
 
         <main className="login-main">
           <div className="login-card">
+            <div className="login-card-header">
+              <span />
+              <LanguageSwitcher />
+            </div>
             <div className="login-brand">
               <div className="login-brand-lockup">
                 <img src="/logo.svg" alt="" className="login-brand-logo" width="48" height="48" />
-                <span className="login-brand-wordmark">ResidencyFlow</span>
+                <span className="login-brand-wordmark">{t('common.brandName')}</span>
               </div>
-              <h1>Verifique seu e-mail</h1>
-              <p>Se o endereço estiver cadastrado, você receberá um link para redefinir sua senha.</p>
+              <h1>{t('forgot.successTitle')}</h1>
+              <p>{t('forgot.successMessage')}</p>
             </div>
 
             <div className="forgot-success-actions">
               <button type="button" className="login-submit" onClick={onBack}>
-                Voltar ao login
+                {t('forgot.backToLogin')}
               </button>
               <button
                 type="button"
                 className="forgot-back-link"
                 onClick={() => { setSent(false); setEmail(''); }}
               >
-                Enviar para outro e-mail
+                {t('forgot.sendToAnother')}
               </button>
             </div>
 
             <div className="login-footer">
               <p>
                 <span className="material-icons">help_outline</span>
-                Não recebeu? <a href="#">Entre em contato com o suporte</a>
+                {t('forgot.didNotReceive')} <a href="#">{t('common.contactSupport')}</a>
               </p>
             </div>
           </div>
 
           <div className="login-meta">
-            <p>© 2024 ResidencyFlow • Faculdade de Medicina • Sistema Internato v4.2.0</p>
+            <p>{t('common.meta')}</p>
           </div>
         </main>
       </div>
@@ -84,18 +91,22 @@ export default function ForgotPassword({ onBack }) {
 
       <main className="login-main">
         <div className="login-card">
+          <div className="login-card-header">
+            <span />
+            <LanguageSwitcher />
+          </div>
           <div className="login-brand">
             <div className="login-brand-lockup">
               <img src="/logo.svg" alt="" className="login-brand-logo" width="48" height="48" />
-              <span className="login-brand-wordmark">ResidencyFlow</span>
+              <span className="login-brand-wordmark">{t('common.brandName')}</span>
             </div>
-            <h1>Recuperar senha</h1>
-            <p>Informe seu e-mail e enviaremos um link para redefinir sua senha.</p>
+            <h1>{t('forgot.title')}</h1>
+            <p>{t('forgot.subtitle')}</p>
           </div>
 
           <form className="login-form forgot-form" onSubmit={handleSubmit}>
             <div className="login-field">
-              <label htmlFor="forgot-email">E-mail</label>
+              <label htmlFor="forgot-email">{t('forgot.emailLabel')}</label>
               <div className="login-input-wrap">
                 <span className="material-icons">mail</span>
                 <input
@@ -103,7 +114,7 @@ export default function ForgotPassword({ onBack }) {
                   name="email"
                   type="email"
                   className="login-input"
-                  placeholder="nome@faculdade.edu.br"
+                  placeholder={t('forgot.emailPlaceholder')}
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -113,13 +124,13 @@ export default function ForgotPassword({ onBack }) {
             </div>
 
             <button type="submit" className="login-submit" disabled={loading}>
-              {loading ? 'Enviando…' : 'Enviar link de recuperação'}
+              {loading ? t('forgot.sending') : t('forgot.submit')}
             </button>
 
             <div className="forgot-back-wrap">
               <button type="button" className="forgot-back-link" onClick={onBack}>
                 <span className="material-icons">arrow_back</span>
-                Voltar ao login
+                {t('forgot.backToLogin')}
               </button>
             </div>
           </form>
@@ -127,13 +138,13 @@ export default function ForgotPassword({ onBack }) {
           <div className="login-footer">
             <p>
               <span className="material-icons">help_outline</span>
-              Lembrou a senha? <a href="#" onClick={(e) => { e.preventDefault(); onBack?.(); }}>Fazer login</a>
+              {t('forgot.rememberedPassword')} <a href="#" onClick={(e) => { e.preventDefault(); onBack?.(); }}>{t('forgot.doLogin')}</a>
             </p>
           </div>
         </div>
 
         <div className="login-meta">
-          <p>© 2024 ResidencyFlow • Faculdade de Medicina • Sistema Internato v4.2.0</p>
+          <p>{t('common.meta')}</p>
         </div>
       </main>
     </div>
