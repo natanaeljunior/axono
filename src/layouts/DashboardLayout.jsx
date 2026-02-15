@@ -1,8 +1,10 @@
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useProfile, PROFILES } from '../contexts/ProfileContext'
+import PreceptorLayout from './PreceptorLayout'
 import '../pages/Dashboard.css'
 
-const NAV_ITEMS = [
+const NAV_COORDENACAO = [
   { key: 'dashboard', icon: 'dashboard', path: '/dashboard' },
   { key: 'students', icon: 'school', path: '/dashboard/alunos' },
   { key: 'groups', icon: 'groups', path: '/dashboard/grupos' },
@@ -12,9 +14,29 @@ const NAV_ITEMS = [
   { key: 'reports', icon: 'assessment', path: '/dashboard/relatorios' },
 ]
 
+const NAV_ALUNO = [
+  { key: 'studentHome', icon: 'home', path: '/dashboard' },
+  { key: 'studentForm', icon: 'edit_note', path: '/dashboard/formulario-diario' },
+  { key: 'studentCert', icon: 'description', path: '/dashboard/certificacao' },
+]
+
+const NAV_PRECEPTOR = [
+  { key: 'preceptorHome', icon: 'home', path: '/dashboard' },
+  { key: 'preceptorValidate', icon: 'check_circle', path: '/dashboard/validar-presencas' },
+]
+
+function getNavItems(profile) {
+  if (profile === PROFILES.ALUNO) return NAV_ALUNO
+  if (profile === PROFILES.PRECEPTOR) return NAV_PRECEPTOR
+  return NAV_COORDENACAO
+}
+
 export default function DashboardLayout() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const location = useLocation()
+  const { profile, setProfile } = useProfile()
+
   const isStudents = location.pathname.includes('/alunos')
   const isGroups = location.pathname.includes('/grupos')
   const isRotations = location.pathname.includes('/rotacoes')
@@ -22,6 +44,11 @@ export default function DashboardLayout() {
   const isHospitals = location.pathname.includes('/hospitais')
   const isParams = location.pathname.includes('/parametros')
   const isReports = location.pathname.includes('/relatorios')
+  const isFormularioDiario = location.pathname.includes('/formulario-diario')
+  const isValidarPresencas = location.pathname.includes('/validar-presencas')
+  const isCertificacao = location.pathname.includes('/certificacao')
+  const isDashboardIndex = location.pathname === '/dashboard' || location.pathname === '/dashboard/'
+
   const breadcrumb = isStudents
     ? t('students.breadcrumb')
     : isGroups
@@ -36,7 +63,34 @@ export default function DashboardLayout() {
               ? t('params.breadcrumb')
               : isReports
                 ? t('reports.breadcrumb')
-                : t('dashboard.breadcrumb')
+                : isFormularioDiario
+                  ? t('studentForm.breadcrumb')
+                  : isValidarPresencas
+                    ? t('preceptorValidate.breadcrumb')
+                    : isCertificacao
+                      ? t('studentCert.breadcrumb')
+                      : profile === PROFILES.ALUNO
+                        ? t('studentHome.breadcrumb')
+                        : profile === PROFILES.PRECEPTOR
+                          ? t('preceptorHome.breadcrumb')
+                          : t('dashboard.breadcrumb')
+
+  const navItems = getNavItems(profile)
+  const showParamsSection = profile === PROFILES.COORDENACAO
+
+  const handleProfileChange = (e) => {
+    const value = e.target.value
+    setProfile(value)
+    navigate('/dashboard')
+  }
+
+  if (profile === PROFILES.PRECEPTOR) {
+    return (
+      <PreceptorLayout>
+        <Outlet />
+      </PreceptorLayout>
+    )
+  }
 
   return (
     <div className="dashboard-layout">
@@ -46,7 +100,7 @@ export default function DashboardLayout() {
           <span className="dashboard-sidebar-brand-name">{t('common.brandName')}</span>
         </div>
         <nav className="dashboard-nav">
-          {NAV_ITEMS.map((item) => (
+          {navItems.map((item) => (
             <NavLink
               key={item.key}
               to={item.path}
@@ -60,25 +114,35 @@ export default function DashboardLayout() {
             </NavLink>
           ))}
         </nav>
-        <div className="dashboard-sidebar-divider">
-          <span>{t('dashboard.nav.settingsSection')}</span>
-        </div>
-        <nav className="dashboard-nav">
-          <NavLink
-            to="/dashboard/parametros"
-            className={({ isActive }) =>
-              `dashboard-nav-item ${isActive ? 'dashboard-nav-item--active' : ''}`
-            }
-          >
-            <span className="material-icons">settings</span>
-            <span>{t('dashboard.nav.params')}</span>
-          </NavLink>
-        </nav>
+        {showParamsSection && (
+          <>
+            <div className="dashboard-sidebar-divider">
+              <span>{t('dashboard.nav.settingsSection')}</span>
+            </div>
+            <nav className="dashboard-nav">
+              <NavLink
+                to="/dashboard/parametros"
+                className={({ isActive }) =>
+                  `dashboard-nav-item ${isActive ? 'dashboard-nav-item--active' : ''}`
+                }
+              >
+                <span className="material-icons">settings</span>
+                <span>{t('dashboard.nav.params')}</span>
+              </NavLink>
+            </nav>
+          </>
+        )}
         <div className="dashboard-user">
-          <div className="dashboard-user-avatar">CM</div>
+          <div className="dashboard-user-avatar">
+            {profile === PROFILES.ALUNO ? 'AS' : profile === PROFILES.PRECEPTOR ? 'RM' : 'CM'}
+          </div>
           <div className="dashboard-user-info">
-            <span className="dashboard-user-name">{t('dashboard.userName')}</span>
-            <span className="dashboard-user-role">{t('dashboard.userRole')}</span>
+            <span className="dashboard-user-name">
+              {profile === PROFILES.ALUNO ? t('profileSwitcher.userAluno') : profile === PROFILES.PRECEPTOR ? t('profileSwitcher.userPreceptor') : t('dashboard.userName')}
+            </span>
+            <span className="dashboard-user-role">
+              {profile === PROFILES.ALUNO ? t('profileSwitcher.roleAluno') : profile === PROFILES.PRECEPTOR ? t('profileSwitcher.rolePreceptor') : t('dashboard.userRole')}
+            </span>
           </div>
         </div>
       </aside>
@@ -98,6 +162,20 @@ export default function DashboardLayout() {
             )}
           </div>
           <div className="dashboard-header-actions">
+            <div className="dashboard-profile-switcher-wrap">
+              <span className="material-icons dashboard-profile-switcher-icon">person</span>
+              <select
+                className="dashboard-profile-switcher"
+                value={profile}
+                onChange={handleProfileChange}
+                aria-label={t('profileSwitcher.label')}
+              >
+                <option value={PROFILES.COORDENACAO}>{t('profileSwitcher.coordenacao')}</option>
+                <option value={PROFILES.ALUNO}>{t('profileSwitcher.aluno')}</option>
+                <option value={PROFILES.PRECEPTOR}>{t('profileSwitcher.preceptor')}</option>
+              </select>
+              <span className="material-icons dashboard-profile-switcher-arrow">expand_more</span>
+            </div>
             {isParams ? (
               <>
                 <button type="button" className="dashboard-btn dashboard-btn--secondary dashboard-btn--header">
@@ -121,12 +199,14 @@ export default function DashboardLayout() {
                 <button type="button" className="dashboard-icon-btn dashboard-icon-btn--badge" aria-label={t('dashboard.notifications')}>
                   <span className="material-icons">notifications</span>
                 </button>
-                <div className="dashboard-cycle-select-wrap">
-                  <select className="dashboard-cycle-select" aria-label={t('dashboard.cycle')}>
-                    <option>{t('dashboard.cycleValue')}</option>
-                  </select>
-                  <span className="material-icons dashboard-cycle-arrow">expand_more</span>
-                </div>
+                {profile === PROFILES.COORDENACAO && (
+                  <div className="dashboard-cycle-select-wrap">
+                    <select className="dashboard-cycle-select" aria-label={t('dashboard.cycle')}>
+                      <option>{t('dashboard.cycleValue')}</option>
+                    </select>
+                    <span className="material-icons dashboard-cycle-arrow">expand_more</span>
+                  </div>
+                )}
               </>
             )}
           </div>

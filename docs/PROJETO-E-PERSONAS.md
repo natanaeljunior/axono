@@ -166,8 +166,11 @@ Com base no código atual (`App.jsx`, páginas em `src/pages/`) e nos menus defi
 | 9 | `/dashboard/hospitais` | Hospitals | Coordenação, Diretor | Gestão de hospitais parceiros. |
 | 10 | `/dashboard/relatorios` | Reports | Coordenação, Diretor | Relatórios e indicadores. |
 | 11 | `/dashboard/parametros` | Parameters | Diretor | Configurações (usuários, segurança, auditoria, etc.). |
+| 12 | `/dashboard/formulario-diario` | StudentDailyForm | **Aluno** | Formulário diário: dados do atendimento, jornada, atividades, competências, salvar rascunho / finalizar. |
+| 13 | `/dashboard/validar-presencas` | PreceptorValidate | **Preceptor** | Validar presenças: rotação atual, histórico do grupo, lista de alunos (pendente/validado/não enviado), Validar Todos. |
+| 14 | `/dashboard/certificacao` | StudentReportsCertification | **Aluno** | Relatórios e certificação: progresso geral, certificado PDF, status das 6 rotações, verificação de assinaturas (ICP-Brasil). |
 
-**Resumo:** **11 telas** implementadas, cobrindo **fluxo público** (login, esqueci-senha, primeiro-acesso) e **fluxo de Coordenação + Diretor** (dashboard, alunos, grupos, rotações, preceptores, hospitais, relatórios, parâmetros).
+**Resumo:** **14 telas** implementadas. Fluxo público (3), Coordenação + Diretor (8), **Aluno** (2: Formulário diário, Relatórios e Certificação), **Preceptor** (1: Validar presenças).
 
 ---
 
@@ -175,28 +178,28 @@ Com base no código atual (`App.jsx`, páginas em `src/pages/`) e nos menus defi
 
 #### Persona: **Aluno**
 
-| Menu (doc) | Telas faltantes | Descrição desejada |
-|------------|-----------------|--------------------|
-| **Início** | Início Aluno | Resumo: meu grupo, rotação atual, hospital, presença do mês. |
-| **Formulário diário** | Formulário diário | Registro de atividades, competências, data, tutor, diretor acadêmico, coordenação do 6º curso. |
-| **Minhas rotações** | Minhas rotações | As 6 rotações, status (concluída / em andamento) e carga horária por rotação. |
-| **Minha presença** | Minha presença | Histórico de dias com presença confirmada pelo preceptor. |
-| **Comprovante** | Comprovante (PDF) | Gerar PDF com registro de presença do ano (liberado ao final do período). |
+| Menu (doc) | Status | Descrição |
+|------------|--------|-----------|
+| **Início** | ❌ Faltando | Resumo: meu grupo, rotação atual, hospital, presença do mês. |
+| **Formulário diário** | ✅ Implementado | `StudentDailyForm` — registro de atividades, competências, data, preceptor do dia, jornada, salvar rascunho / finalizar. |
+| **Minhas rotações** | ⚠️ Parcial | Incluído em **Relatórios e Certificação** (`StudentReportsCertification`): status das 6 rotações, horas, conclusão. |
+| **Minha presença** | ❌ Faltando | Histórico de dias com presença confirmada pelo preceptor. |
+| **Comprovante** | ⚠️ Parcial | Incluído em **Relatórios e Certificação**: progresso geral, botão “Gerar PDF Final de Internato”, tabela de assinaturas. |
 
-**Total Aluno:** **5 telas** faltando.
+**Total Aluno:** **2 telas** ainda faltando (Início Aluno, Minha presença); Formulário diário e Relatórios/Certificação implementados.
 
 ---
 
 #### Persona: **Preceptor**
 
-| Menu (doc) | Telas faltantes | Descrição desejada |
-|------------|-----------------|--------------------|
-| **Início** | Início Preceptor | Meu grupo (10 alunos), rotação e hospital atuais. |
-| **Confirmar presenças** | Confirmar presenças | Lista do dia: marcar quais alunos estiveram presentes na rotação. |
-| **Meu grupo** | Meu grupo | Lista dos 10 alunos, presença acumulada, carga horária por rotação. |
-| **Histórico** | Histórico (presenças) | Presenças já confirmadas (por data, aluno, rotação). |
+| Menu (doc) | Status | Descrição |
+|------------|--------|-----------|
+| **Início** | ❌ Faltando | Meu grupo (10 alunos), rotação e hospital atuais (visão resumida). |
+| **Confirmar presenças** | ✅ Implementado | `PreceptorValidate` — rotação atual, progresso de validação, lista de alunos (pendente/validado/não enviado), AJUSTE/CONFIRMAR, Validar Todos. |
+| **Meu grupo** | ❌ Faltando | Lista dos 10 alunos, presença acumulada, carga horária por rotação. |
+| **Histórico** | ❌ Faltando | Presenças já confirmadas (por data, aluno, rotação). |
 
-**Total Preceptor:** **4 telas** faltando.
+**Total Preceptor:** **3 telas** ainda faltando (Início, Meu grupo, Histórico); Confirmar presenças implementado.
 
 ---
 
@@ -216,13 +219,13 @@ Todas as telas do Diretor **já existem** (todas da Coordenação + Parâmetros)
 
 | Persona | Telas previstas no doc | Telas implementadas | Faltando |
 |---------|------------------------|----------------------|----------|
-| **Aluno** | 5 | 0 | **5** (Início, Formulário diário, Minhas rotações, Minha presença, Comprovante) |
-| **Preceptor** | 4 | 0 | **4** (Início, Confirmar presenças, Meu grupo, Histórico) |
+| **Aluno** | 5 | **2** (Formulário diário, Relatórios e Certificação) | **2** (Início Aluno, Minha presença) |
+| **Preceptor** | 4 | **1** (Validar presenças) | **3** (Início, Meu grupo, Histórico) |
 | **Coordenação** | 7 | 7 | **0** |
 | **Diretor** | 8 (7 + Parâmetros) | 8 | **0** |
 
-**Total de telas faltantes:** **9** (5 do Aluno + 4 do Preceptor).  
-*(Algumas podem ser reaproveitadas: por exemplo, um “Início” único que muda o conteúdo conforme o perfil, em vez de duas telas separadas.)*
+**Total de telas faltantes:** **5** (2 do Aluno + 3 do Preceptor).  
+Consulte “Início” `docs/ACOMPANHAMENTO-TELAS.md` para o checklist completo de telas criadas.
 
 ---
 
