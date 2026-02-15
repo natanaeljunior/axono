@@ -7,6 +7,7 @@ import DashboardHome from './pages/DashboardHome'
 import Students from './pages/Students'
 import Groups from './pages/Groups'
 import Rotations from './pages/Rotations'
+import Preceptors from './pages/Preceptors'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="alunos" element={<Students />} />
         <Route path="grupos" element={<Groups />} />
         <Route path="rotacoes" element={<Rotations />} />
+        <Route path="preceptores" element={<Preceptors />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>

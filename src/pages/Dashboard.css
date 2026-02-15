@@ -2455,3 +2455,446 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ========== Gestão de Médicos Preceptores ========== */
+.preceptors-page-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .preceptors-page-header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.preceptors-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.preceptors-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.preceptors-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.preceptors-btn-primary {
+  box-shadow: 0 1px 2px rgba(23, 84, 207, 0.2);
+}
+
+.preceptors-filters-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 768px) {
+  .preceptors-filters-card {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.preceptors-search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.preceptors-search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25rem !important;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.preceptors-search {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--color-text);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.preceptors-search:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(23, 84, 207, 0.2);
+}
+
+.preceptors-search::placeholder {
+  color: var(--color-text-muted);
+}
+
+.preceptors-filters {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .preceptors-filters {
+    width: auto;
+  }
+}
+
+.preceptors-select {
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--color-text);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+@media (min-width: 768px) {
+  .preceptors-select {
+    width: 12rem;
+    flex: none;
+  }
+}
+
+.preceptors-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(23, 84, 207, 0.2);
+}
+
+.preceptors-table-card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.preceptors-table-wrap {
+  overflow-x: auto;
+}
+
+.preceptors-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.preceptors-th {
+  padding: 1rem 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  background: var(--slate-50);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.preceptors-th--actions {
+  text-align: right;
+}
+
+.preceptors-tr {
+  transition: background 0.2s;
+}
+
+.preceptors-tr:hover {
+  background: var(--slate-50);
+}
+
+.preceptors-td {
+  padding: 1rem 1.5rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--slate-100);
+}
+
+.preceptors-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.preceptors-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--color-primary-10);
+  color: var(--color-primary);
+  font-size: 0.875rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.preceptors-name {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.preceptors-email {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 0.125rem;
+}
+
+.preceptors-td--crm,
+.preceptors-td--hospital {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.preceptors-pill {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+}
+
+.preceptors-pill--clinica {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.preceptors-pill--pediatria {
+  background: #e9d5ff;
+  color: #6d28d9;
+}
+
+.preceptors-pill--cirurgia {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.preceptors-pill--ginecologia {
+  background: #ffe4e6;
+  color: #be123c;
+}
+
+.preceptors-group-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--slate-100);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.preceptors-td--actions {
+  text-align: right;
+}
+
+.preceptors-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.preceptors-action-btn {
+  padding: 0.5rem;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+
+.preceptors-action-btn:hover {
+  color: var(--color-primary);
+}
+
+.preceptors-action-btn .material-icons {
+  font-size: 1.25rem;
+}
+
+.preceptors-action-btn--danger:hover {
+  color: #dc2626;
+}
+
+.preceptors-pagination {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--slate-50);
+  border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 640px) {
+  .preceptors-pagination {
+    flex-direction: row;
+  }
+}
+
+.preceptors-pagination-text {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.preceptors-pagination-text .font-medium {
+  font-weight: 600;
+}
+
+.preceptors-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.preceptors-page-btn {
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.preceptors-page-btn:hover {
+  background: #fff;
+}
+
+.preceptors-page-btn--arrow {
+  border: 1px solid var(--slate-300);
+  color: var(--color-text-muted);
+}
+
+.preceptors-page-btn--arrow:hover {
+  background: #fff;
+}
+
+.preceptors-page-btn--active {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.preceptors-page-btn--active:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.preceptors-page-ellipsis {
+  padding: 0 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.preceptors-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .preceptors-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.preceptors-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.preceptors-stat-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.preceptors-stat-icon .material-icons {
+  font-size: 1.5rem;
+}
+
+.preceptors-stat-icon--blue {
+  background: #dbeafe;
+  color: var(--color-primary);
+}
+
+.preceptors-stat-icon--green {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.preceptors-stat-icon--purple {
+  background: #e9d5ff;
+  color: #9333ea;
+}
+
+.preceptors-stat-label {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.preceptors-stat-value {
+  margin: 0.25rem 0 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+}

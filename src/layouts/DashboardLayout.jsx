@@ -6,7 +6,7 @@ const NAV_ITEMS = [
   { key: 'dashboard', icon: 'dashboard', path: '/dashboard' },
   { key: 'students', icon: 'school', path: '/dashboard/alunos' },
   { key: 'groups', icon: 'groups', path: '/dashboard/grupos' },
-  { key: 'preceptors', icon: 'medical_services', path: '/dashboard' },
+  { key: 'preceptors', icon: 'medical_services', path: '/dashboard/preceptores' },
   { key: 'hospitals', icon: 'local_hospital', path: '/dashboard' },
   { key: 'rotations', icon: 'calendar_month', path: '/dashboard/rotacoes' },
   { key: 'reports', icon: 'assessment', path: '/dashboard' },
@@ -18,13 +18,16 @@ export default function DashboardLayout() {
   const isStudents = location.pathname.includes('/alunos')
   const isGroups = location.pathname.includes('/grupos')
   const isRotations = location.pathname.includes('/rotacoes')
+  const isPreceptors = location.pathname.includes('/preceptores')
   const breadcrumb = isStudents
     ? t('students.breadcrumb')
     : isGroups
       ? t('groups.breadcrumb')
       : isRotations
         ? t('rotations.breadcrumb')
-        : t('dashboard.breadcrumb')
+        : isPreceptors
+          ? t('preceptors.breadcrumb')
+          : t('dashboard.breadcrumb')
 
   return (
     <div className="dashboard-layout">
