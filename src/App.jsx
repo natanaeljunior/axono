@@ -10,6 +10,7 @@ import Rotations from './pages/Rotations'
 import Preceptors from './pages/Preceptors'
 import Hospitals from './pages/Hospitals'
 import Parameters from './pages/Parameters'
+import Reports from './pages/Reports'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="preceptores" element={<Preceptors />} />
         <Route path="hospitais" element={<Hospitals />} />
         <Route path="parametros" element={<Parameters />} />
+        <Route path="relatorios" element={<Reports />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
