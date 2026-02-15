@@ -34,5 +34,42 @@
     "successMessage": "Se o endereço estiver cadastrado, você receberá um link para redefinir sua senha.",
     "sendToAnother": "Enviar para outro e-mail",
     "didNotReceive": "Não recebeu?"
+  },
+  "firstAccess": {
+    "brandTitle": "INTERNATO",
+    "brandSubtitle": "GESTÃO ACADÊMICA MÉDICA",
+    "title": "Configuração de Primeiro Acesso",
+    "intro": "Olá! Para garantir a segurança dos seus dados na plataforma de internato, confirme suas informações e defina uma senha de acesso.",
+    "identityTitle": "CONFIRMAÇÃO DE IDENTIDADE",
+    "fullName": "Nome Completo",
+    "cpf": "CPF",
+    "matriculaCrm": "Matrícula / CRM",
+    "preRegisteredNote": "Os dados acima foram pré-cadastrados pela secretaria acadêmica.",
+    "securityTitle": "SEGURANÇA DA CONTA",
+    "newPassword": "Nova Senha",
+    "confirmPassword": "Confirmar Senha",
+    "passwordMismatch": "As senhas não coincidem.",
+    "strengthLabel": "FORÇA DA SENHA",
+    "strength": {
+      "weak": "FRACA",
+      "medium": "MÉDIA",
+      "strong": "FORTE",
+      "very_strong": "MUITO FORTE"
+    },
+    "requirementMin": "Mínimo de 8 caracteres",
+    "requirementUpper": "Pelo menos uma letra maiúscula",
+    "requirementNumber": "Pelo menos um número ou caractere especial",
+    "termsPrefix": "Li e aceito os",
+    "termsLink": "Termos de Uso",
+    "termsAnd": "e a",
+    "privacyLink": "Política de Privacidade",
+    "termsSuffix": "da plataforma de internato.",
+    "submit": "Ativar Minha Conta",
+    "dataIncorrect": "Seus dados estão incorretos?",
+    "contactSupport": "Contate o suporte acadêmico",
+    "footerCopy": "© 2024 Plataforma de Internato Médico. Todos os direitos reservados.",
+    "help": "Ajuda",
+    "security": "Segurança",
+    "lgpd": "LGPD"
   }
 }

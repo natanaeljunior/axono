@@ -1,16 +1,19 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../components/LanguageSwitcher'
 import './Login.css'
 
-export default function Login({ onForgotPassword }) {
+export default function Login() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [rememberMe, setRememberMe] = useState(false)
 
   function handleSubmit(e) {
     e.preventDefault()
-    // TODO: integrar com auth
+    // TODO: integrar com auth; por ora redireciona para configuração de primeiro acesso
+    navigate('/primeiro-acesso')
   }
 
   return (
@@ -60,7 +63,7 @@ export default function Login({ onForgotPassword }) {
             <div className="login-field">
               <div className="login-field-row">
                 <label htmlFor="password">{t('login.passwordLabel')}</label>
-                <a href="#" onClick={(e) => { e.preventDefault(); onForgotPassword?.(); }}>{t('login.forgotPassword')}</a>
+                <a href="#" onClick={(e) => { e.preventDefault(); navigate('/esqueci-senha'); }}>{t('login.forgotPassword')}</a>
               </div>
               <div className="login-input-wrap has-toggle">
                 <span className="material-icons">lock</span>

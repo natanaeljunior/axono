@@ -1,11 +1,13 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../components/LanguageSwitcher'
 import './Login.css'
 import './ForgotPassword.css'
 
-export default function ForgotPassword({ onBack }) {
+export default function ForgotPassword() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -49,7 +51,7 @@ export default function ForgotPassword({ onBack }) {
             </div>
 
             <div className="forgot-success-actions">
-              <button type="button" className="login-submit" onClick={onBack}>
+              <button type="button" className="login-submit" onClick={() => navigate('/login')}>
                 {t('forgot.backToLogin')}
               </button>
               <button
@@ -128,7 +130,7 @@ export default function ForgotPassword({ onBack }) {
             </button>
 
             <div className="forgot-back-wrap">
-              <button type="button" className="forgot-back-link" onClick={onBack}>
+              <button type="button" className="forgot-back-link" onClick={() => navigate('/login')}>
                 <span className="material-icons">arrow_back</span>
                 {t('forgot.backToLogin')}
               </button>
@@ -138,7 +140,7 @@ export default function ForgotPassword({ onBack }) {
           <div className="login-footer">
             <p>
               <span className="material-icons">help_outline</span>
-              {t('forgot.rememberedPassword')} <a href="#" onClick={(e) => { e.preventDefault(); onBack?.(); }}>{t('forgot.doLogin')}</a>
+              {t('forgot.rememberedPassword')} <a href="#" onClick={(e) => { e.preventDefault(); navigate('/login'); }}>{t('forgot.doLogin')}</a>
             </p>
           </div>
         </div>

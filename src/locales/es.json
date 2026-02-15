@@ -34,5 +34,42 @@
     "successMessage": "Si el correo está registrado, recibirá un enlace para restablecer su contraseña.",
     "sendToAnother": "Enviar a otro correo",
     "didNotReceive": "¿No lo recibió?"
+  },
+  "firstAccess": {
+    "brandTitle": "INTERNADO",
+    "brandSubtitle": "GESTIÓN ACADÉMICA MÉDICA",
+    "title": "Configuración de primer acceso",
+    "intro": "Hola! Para garantizar la seguridad de sus datos en la plataforma de residencia, confirme su información y defina una contraseña de acceso.",
+    "identityTitle": "CONFIRMACIÓN DE IDENTIDAD",
+    "fullName": "Nombre completo",
+    "cpf": "CPF",
+    "matriculaCrm": "Matrícula / CRM",
+    "preRegisteredNote": "Los datos anteriores fueron precargados por la secretaría académica.",
+    "securityTitle": "SEGURIDAD DE LA CUENTA",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "passwordMismatch": "Las contraseñas no coinciden.",
+    "strengthLabel": "NIVEL DE CONTRASEÑA",
+    "strength": {
+      "weak": "DÉBIL",
+      "medium": "MEDIA",
+      "strong": "FUERTE",
+      "very_strong": "MUY FUERTE"
+    },
+    "requirementMin": "Mínimo 8 caracteres",
+    "requirementUpper": "Al menos una letra mayúscula",
+    "requirementNumber": "Al menos un número o carácter especial",
+    "termsPrefix": "He leído y acepto los",
+    "termsLink": "Términos de Uso",
+    "termsAnd": "y la",
+    "privacyLink": "Política de Privacidad",
+    "termsSuffix": "de la plataforma de residencia.",
+    "submit": "Activar mi cuenta",
+    "dataIncorrect": "¿Sus datos son incorrectos?",
+    "contactSupport": "Contacte al soporte académico",
+    "footerCopy": "© 2024 Plataforma de Residencia Médica. Todos los derechos reservados.",
+    "help": "Ayuda",
+    "security": "Seguridad",
+    "lgpd": "LGPD"
   }
 }

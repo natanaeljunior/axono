@@ -371,6 +371,7 @@
 
 .login-input-wrap {
   position: relative;
+  display: block;
 }
 
 .login-input-wrap .material-icons:first-child {
@@ -381,6 +382,7 @@
   font-size: 1rem;
   color: #94a3b8;
   pointer-events: none;
+  z-index: 1;
 }
 
 .login-input {
@@ -394,6 +396,7 @@
   border: 1px solid #e2e8f0;
   border-radius: 0.5rem;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.2s ease;
+  box-sizing: border-box;
 }
 
 .login-input:hover {
@@ -410,11 +413,19 @@
   box-shadow: 0 0 0 2px rgba(23, 84, 207, 0.2);
 }
 
+/* Ícone de visibilidade DENTRO do campo: input com espaço à direita, botão absoluto sobre essa área */
+.login-input-wrap.has-toggle .login-input {
+  padding-right: 2.5rem;
+}
+
 .login-input-wrap .login-toggle-pwd {
   position: absolute;
-  right: 0.75rem;
+  right: 0.5rem;
   top: 50%;
   transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
   padding: 0;
   border: none;
   background: none;
@@ -424,6 +435,8 @@
   align-items: center;
   justify-content: center;
   transition: color 0.2s ease, transform 0.2s ease;
+  z-index: 2;
+  border-radius: 0.25rem;
 }
 
 .login-input-wrap .login-toggle-pwd:hover {
@@ -431,8 +444,8 @@
   transform: translateY(-50%) scale(1.1);
 }
 
-.login-input-wrap.has-toggle .login-input {
-  padding-right: 2.5rem;
+.login-input-wrap .login-toggle-pwd .material-icons {
+  font-size: 1.25rem;
 }
 
 /* Checkbox */
