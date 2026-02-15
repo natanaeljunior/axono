@@ -13,7 +13,7 @@ export default function Login() {
   function handleSubmit(e) {
     e.preventDefault()
     // TODO: integrar com auth; por ora redireciona para configuração de primeiro acesso
-    navigate('/primeiro-acesso')
+    navigate('/dashboard')
   }
 
   return (
