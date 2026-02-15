@@ -8,6 +8,7 @@ import Students from './pages/Students'
 import Groups from './pages/Groups'
 import Rotations from './pages/Rotations'
 import Preceptors from './pages/Preceptors'
+import Hospitals from './pages/Hospitals'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="grupos" element={<Groups />} />
         <Route path="rotacoes" element={<Rotations />} />
         <Route path="preceptores" element={<Preceptors />} />
+        <Route path="hospitais" element={<Hospitals />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
