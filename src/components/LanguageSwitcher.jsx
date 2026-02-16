@@ -6,7 +6,7 @@ const LANGUAGES = [
   { code: 'es', label: 'ES' },
 ]
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({ className } = {}) {
   const { i18n } = useTranslation()
 
   function handleChange(lng) {
@@ -15,7 +15,7 @@ export default function LanguageSwitcher() {
   }
 
   return (
-    <div className="language-switcher" role="group" aria-label="Idioma">
+    <div className={['language-switcher', className].filter(Boolean).join(' ')} role="group" aria-label={i18n.language === 'es' ? 'Idioma' : 'Language'}>
       {LANGUAGES.map(({ code, label }) => (
         <button
           key={code}

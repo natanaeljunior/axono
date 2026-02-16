@@ -81,6 +81,10 @@
   min-width: 0;
 }
 
+.app-header-lang.language-switcher {
+  flex-shrink: 0;
+}
+
 /* PersonaSelect no header usa .app-header-persona (className) */
 .app-header-persona.persona-select {
   flex-shrink: 0;

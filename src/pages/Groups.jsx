@@ -1,66 +1,166 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+import { groupService, preceptorService } from '../services'
 
 const VIEW_GRID = 'grid'
 const VIEW_LIST = 'list'
+const PAGE_SIZE = 20
 
-const INITIAL_COLORS = ['blue', 'purple', 'orange', 'indigo', 'green']
+/** Tipos de rotação do backend (enum). */
+const ROTATION_TYPES = ['SURGERY', 'PEDIATRICS', 'CLINICAL', 'GYNECOLOGY', 'EMERGENCY', 'HEALTH']
 
-const GROUP_CARDS = [
-  {
-    id: 'G-01',
-    tag: 'health',
-    tagLabelKey: 'rotationHealth',
-    rotation: '3/6',
-    progressPercent: 50,
-    preceptor: 'Dr. Roberto Silva',
-    hospital: 'Hospital das Clínicas',
-    studentCount: 10,
-    initials: ['AA', 'BP', 'CM', 'DS', 'ET'],
-    extraCount: 5,
-  },
-  {
-    id: 'G-02',
-    tag: 'gynecology',
-    tagLabelKey: 'rotationGynecology',
-    rotation: '1/6',
-    progressPercent: 15,
-    preceptor: 'Dra. Heloísa Ramos',
-    hospital: 'Santa Casa de Misericórdia',
-    studentCount: 10,
-    initials: ['MR', 'JC', 'LG'],
-    extraCount: 7,
-  },
-  {
-    id: 'G-03',
-    tag: 'pediatrics',
-    tagLabelKey: 'rotationPediatrics',
-    rotation: '5/6',
-    progressPercent: 80,
-    preceptor: 'Dr. Marcos Vinícius',
-    hospital: 'Hosp. Infantil Sabará',
-    studentCount: 10,
-    initials: ['FF', 'KL'],
-    extraCount: 8,
-  },
-  {
-    id: 'G-04',
-    preceptor: 'Dr. Amanda Costa',
-    hospital: 'Hospital Municipal',
-    compact: true,
-  },
-  {
-    id: 'G-05',
-    preceptor: 'Dr. Juliano Lima',
-    hospital: 'UPA Central',
-    compact: true,
-  },
-]
+/** Retorna a chave de tradução para o tipo de rotação (groups.rotationX). */
+function rotationTypeLabelKey(rotationType) {
+  if (!rotationType) return ''
+  const key = 'rotation' + rotationType.charAt(0) + rotationType.slice(1).toLowerCase()
+  return `groups.${key}`
+}
+
+/** Tag CSS para o card (ex: health, surgery). */
+function rotationTypeTag(rotationType) {
+  return rotationType ? rotationType.toLowerCase() : 'default'
+}
 
 export default function Groups() {
   const { t } = useTranslation()
   const [view, setView] = useState(VIEW_GRID)
   const [search, setSearch] = useState('')
+  const [cycle, setCycle] = useState('2024.2')
+  const [groups, setGroups] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [page, setPage] = useState(0)
+  const [totalElements, setTotalElements] = useState(0)
+  const [totalPages, setTotalPages] = useState(0)
+  const [preceptors, setPreceptors] = useState([])
+  const [modalOpen, setModalOpen] = useState(false)
+  const [editingGroup, setEditingGroup] = useState(null)
+  const [saving, setSaving] = useState(false)
+  const [formData, setFormData] = useState({
+    code: '',
+    preceptorId: '',
+    hospitalName: '',
+    rotationType: '',
+    rotationCurrent: 1,
+    rotationTotal: 6,
+    cycle: '2024.2',
+  })
+  const [deleteConfirmGroup, setDeleteConfirmGroup] = useState(null)
+  const [deleting, setDeleting] = useState(false)
+
+  const fetchGroups = useCallback(async () => {
+    setLoading(true)
+    setError('')
+    try {
+      const data = await groupService.findAll(cycle || null, page, PAGE_SIZE)
+      setGroups(data.content || [])
+      setTotalElements(data.totalElements ?? 0)
+      setTotalPages(data.totalPages ?? 0)
+    } catch (err) {
+      setError(err.response?.data?.message || 'Erro ao carregar grupos')
+    } finally {
+      setLoading(false)
+    }
+  }, [cycle, page])
+
+  useEffect(() => {
+    fetchGroups()
+  }, [fetchGroups])
+
+  useEffect(() => {
+    preceptorService.findAll(0, 500).then((data) => {
+      setPreceptors(data.content || [])
+    }).catch(() => {})
+  }, [])
+
+  const openCreate = () => {
+    setEditingGroup(null)
+    setFormData({
+      code: '',
+      preceptorId: '',
+      hospitalName: '',
+      rotationType: '',
+      rotationCurrent: 1,
+      rotationTotal: 6,
+      cycle: cycle || '2024.2',
+    })
+    setModalOpen(true)
+  }
+
+  const openEdit = (group) => {
+    setEditingGroup(group)
+    setFormData({
+      code: group.code,
+      preceptorId: group.preceptorId || '',
+      hospitalName: group.hospitalName || '',
+      rotationType: group.rotationType || '',
+      rotationCurrent: group.rotationCurrent ?? 1,
+      rotationTotal: group.rotationTotal ?? 6,
+      cycle: group.cycle || '',
+    })
+    setModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setModalOpen(false)
+    setEditingGroup(null)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setSaving(true)
+    setError('')
+    try {
+      const payload = {
+        code: formData.code.trim(),
+        preceptorId: formData.preceptorId || null,
+        hospitalName: formData.hospitalName?.trim() || null,
+        rotationType: formData.rotationType || null,
+        rotationCurrent: formData.rotationCurrent ? Number(formData.rotationCurrent) : null,
+        rotationTotal: formData.rotationTotal ? Number(formData.rotationTotal) : 6,
+        cycle: formData.cycle?.trim() || null,
+      }
+      if (!payload.preceptorId) {
+        setError('Selecione um preceptor.')
+        setSaving(false)
+        return
+      }
+      if (editingGroup) {
+        await groupService.update(editingGroup.id, payload)
+      } else {
+        await groupService.create(payload)
+      }
+      closeModal()
+      fetchGroups()
+    } catch (err) {
+      setError(err.response?.data?.message || 'Erro ao salvar')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const openDeleteConfirm = (group) => setDeleteConfirmGroup(group)
+  const closeDeleteConfirm = () => {
+    if (!deleting) setDeleteConfirmGroup(null)
+  }
+
+  const handleConfirmDelete = async () => {
+    if (!deleteConfirmGroup) return
+    setDeleting(true)
+    setError('')
+    try {
+      await groupService.delete(deleteConfirmGroup.id)
+      setDeleteConfirmGroup(null)
+      fetchGroups()
+    } catch (err) {
+      setError(err.response?.data?.message || 'Erro ao excluir')
+    } finally {
+      setDeleting(false)
+    }
+  }
+
+  const displayCode = (code) => (code && !/^G-?\d+/i.test(code) ? `G-${code}` : code) || '—'
+  const totalStudents = groups.reduce((sum, g) => sum + (g.studentCount || 0), 0)
 
   return (
     <>
@@ -93,7 +193,7 @@ export default function Groups() {
               {t('groups.viewList')}
             </button>
           </div>
-          <button type="button" className="dashboard-btn dashboard-btn--primary">
+          <button type="button" className="dashboard-btn dashboard-btn--primary" onClick={openCreate}>
             <span className="material-icons">add</span>
             {t('groups.newGroup')}
           </button>
@@ -104,11 +204,11 @@ export default function Groups() {
         <div className="groups-stats">
           <span className="groups-stat groups-stat--blue">
             <span className="groups-stat-dot" />
-            {t('groups.statsActive', { count: 18 })}
+            {t('groups.statsActive', { count: totalElements })}
           </span>
           <span className="groups-stat groups-stat--green">
             <span className="groups-stat-dot" />
-            {t('groups.statsAllocated', { count: 180 })}
+            {t('groups.statsAllocated', { count: totalStudents })}
           </span>
         </div>
         <div className="groups-toolbar">
@@ -129,104 +229,142 @@ export default function Groups() {
         </div>
       </div>
 
+      {error && (
+        <div className="students-error" role="alert">
+          <span className="material-icons">error_outline</span>
+          {error}
+        </div>
+      )}
+
       <div className={`groups-grid ${view === VIEW_LIST ? 'groups-grid--list' : ''}`}>
-        {GROUP_CARDS.map((card) => (
-          <article key={card.id} className="groups-card">
-            <div className="groups-card-header">
-              <h2 className="groups-card-title">{t('groups.groupLabel', { id: card.id })}</h2>
-              <div className="groups-card-actions">
-                {!card.compact && (
-                  <>
-                    <button type="button" className="groups-card-icon-btn" aria-label={t('students.edit')}>
+        {loading ? (
+          <p className="students-loading">Carregando...</p>
+        ) : (
+          groups.map((card) => {
+            const compact = !card.rotationType && !card.rotationCurrent
+            const progressPercent = card.rotationTotal && card.rotationCurrent != null
+              ? Math.round((card.rotationCurrent / card.rotationTotal) * 100)
+              : 0
+            const rotationLabel = card.rotationType ? t(rotationTypeLabelKey(card.rotationType)) : ''
+            return (
+              <article key={card.id} className="groups-card">
+                <div className="groups-card-header">
+                  <h2 className="groups-card-title">{t('groups.groupLabel', { id: displayCode(card.code) })}</h2>
+                  <div className="groups-card-actions">
+                    <button
+                      type="button"
+                      className="groups-card-icon-btn"
+                      aria-label={t('students.edit')}
+                      onClick={() => openEdit(card)}
+                    >
                       <span className="material-icons">edit</span>
                     </button>
-                    <button type="button" className="groups-card-icon-btn" aria-label={t('dashboard.actions')}>
-                      <span className="material-icons">more_vert</span>
+                    <button
+                      type="button"
+                      className="groups-card-icon-btn"
+                      aria-label={t('students.delete')}
+                      onClick={() => openDeleteConfirm(card)}
+                    >
+                      <span className="material-icons">delete_outline</span>
                     </button>
+                  </div>
+                </div>
+                {compact ? (
+                  <div className="groups-card-compact">
+                    <p className="groups-card-preceptor-label">{t('groups.preceptor')}</p>
+                    <p className="groups-card-preceptor-name">{card.preceptorName || '—'}</p>
+                    <p className="groups-card-hospital-inline">
+                      <span className="material-icons">business</span>
+                      {card.hospitalName || '—'}
+                    </p>
+                    <div className="groups-card-compact-footer">
+                      <button type="button" className="groups-card-edit-link" onClick={() => openEdit(card)}>
+                        {t('groups.edit')}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="groups-card-title-row">
+                      <span className={`groups-card-tag groups-card-tag--${rotationTypeTag(card.rotationType)}`}>
+                        {rotationLabel || '—'}
+                      </span>
+                      <span className="groups-card-rotation-dot">•</span>
+                      <span className="groups-card-rotation">
+                        {t('groups.rotationStatus', {
+                          current: card.rotationCurrent ?? 0,
+                          total: card.rotationTotal ?? 6,
+                        })}
+                      </span>
+                    </div>
+                    <div className="groups-card-preceptor-block">
+                      <div className="groups-card-preceptor-avatar" />
+                      <div className="groups-card-preceptor-info">
+                        <p className="groups-card-preceptor-label">{t('groups.responsiblePreceptor')}</p>
+                        <div className="groups-card-preceptor-name-row">
+                          <span className="groups-card-preceptor-name">{card.preceptorName || '—'}</span>
+                          <button type="button" className="groups-card-swap-link">{t('groups.swap')}</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="groups-card-hospital-box">
+                      <div className="groups-card-hospital-box-header">
+                        <span className="material-icons">business</span>
+                        <span>{card.hospitalName || '—'}</span>
+                      </div>
+                      <div
+                        className="groups-progress-bar groups-progress-bar--sm"
+                        role="progressbar"
+                        aria-valuenow={progressPercent}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                      >
+                        <div className="groups-progress-fill" style={{ width: `${progressPercent}%` }} />
+                      </div>
+                    </div>
+                    <div className="groups-card-students-row">
+                      <span className="groups-card-students-label">{t('groups.studentsCount', { count: card.studentCount ?? 0 })}</span>
+                      <button type="button" className="groups-card-view-list">{t('groups.viewStudentList')}</button>
+                    </div>
                   </>
                 )}
-                {card.compact && (
-                  <button type="button" className="groups-card-icon-btn" aria-label={t('dashboard.actions')}>
-                    <span className="material-icons">more_vert</span>
-                  </button>
-                )}
-              </div>
-            </div>
-            {card.compact ? (
-              <div className="groups-card-compact">
-                <p className="groups-card-preceptor-label">{t('groups.preceptor')}</p>
-                <p className="groups-card-preceptor-name">{card.preceptor}</p>
-                <p className="groups-card-hospital-inline">
-                  <span className="material-icons">business</span>
-                  {card.hospital}
-                </p>
-                <div className="groups-card-compact-footer">
-                  <div className="groups-card-color-dots" aria-hidden>
-                    <span className="groups-dot groups-dot--blue" /><span className="groups-dot groups-dot--red" /><span className="groups-dot groups-dot--slate" />
-                  </div>
-                  <button type="button" className="groups-card-edit-link">{t('groups.edit')}</button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <div className="groups-card-title-row">
-                  <span className={`groups-card-tag groups-card-tag--${card.tag || 'default'}`}>
-                    {t(`groups.${card.tagLabelKey}`)}
-                  </span>
-                  <span className="groups-card-rotation-dot">•</span>
-                  <span className="groups-card-rotation">{t('groups.rotationStatus', { current: card.rotation.split('/')[0], total: 6 })}</span>
-                </div>
-                <div className="groups-card-preceptor-block">
-                  <div className="groups-card-preceptor-avatar" />
-                  <div className="groups-card-preceptor-info">
-                    <p className="groups-card-preceptor-label">{t('groups.responsiblePreceptor')}</p>
-                    <div className="groups-card-preceptor-name-row">
-                      <span className="groups-card-preceptor-name">{card.preceptor}</span>
-                      <button type="button" className="groups-card-swap-link">{t('groups.swap')}</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="groups-card-hospital-box">
-                  <div className="groups-card-hospital-box-header">
-                    <span className="material-icons">business</span>
-                    <span>{card.hospital}</span>
-                  </div>
-                  <div className="groups-progress-bar groups-progress-bar--sm" role="progressbar" aria-valuenow={card.progressPercent || 0} aria-valuemin={0} aria-valuemax={100}>
-                    <div className="groups-progress-fill" style={{ width: `${card.progressPercent || 0}%` }} />
-                  </div>
-                </div>
-                <div className="groups-card-students-row">
-                  <span className="groups-card-students-label">{t('groups.studentsCount', { count: card.studentCount })}</span>
-                  <button type="button" className="groups-card-view-list">{t('groups.viewStudentList')}</button>
-                </div>
-                <div className="groups-card-initials groups-card-initials--stack">
-                  {card.initials.map((init, i) => (
-                    <div
-                      key={i}
-                      className={`groups-initial groups-initial--${INITIAL_COLORS[i % INITIAL_COLORS.length]}`}
-                      title={init}
-                    >
-                      {init}
-                    </div>
-                  ))}
-                  <span className="groups-initial-extra">+{card.extraCount}</span>
-                </div>
-              </>
-            )}
-          </article>
-        ))}
-        <div className="groups-card groups-card--placeholder" aria-hidden>
-          <span className="material-icons groups-card-placeholder-icon">groups</span>
-          <p className="groups-card-placeholder-title">{t('groups.placeholderTitle')}</p>
-          <p className="groups-card-placeholder-sub">{t('groups.placeholderSub')}</p>
-        </div>
-        <button type="button" className="groups-card groups-card--new" aria-label={t('groups.newGroup')}>
-          <span className="groups-card-new-circle">
-            <span className="material-icons">add</span>
-          </span>
-          <span className="groups-card-new-text">{t('groups.newGroup')}</span>
-        </button>
+              </article>
+            )
+          })
+        )}
+        {!loading && (
+          <>
+            <button type="button" className="groups-card groups-card--new" aria-label={t('groups.newGroup')} onClick={openCreate}>
+              <span className="groups-card-new-circle">
+                <span className="material-icons">add</span>
+              </span>
+              <span className="groups-card-new-text">{t('groups.newGroup')}</span>
+            </button>
+          </>
+        )}
       </div>
+
+      {!loading && totalPages > 1 && (
+        <div className="groups-pagination" style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <button
+            type="button"
+            className="dashboard-btn dashboard-btn--secondary"
+            disabled={page === 0}
+            onClick={() => setPage((p) => p - 1)}
+          >
+            <span className="material-icons">chevron_left</span>
+          </button>
+          <span>{page + 1} / {totalPages}</span>
+          <button
+            type="button"
+            className="dashboard-btn dashboard-btn--secondary"
+            disabled={page >= totalPages - 1}
+            onClick={() => setPage((p) => p + 1)}
+          >
+            <span className="material-icons">chevron_right</span>
+          </button>
+        </div>
+      )}
 
       <section className="groups-bottom">
         <div className="groups-bottom-card groups-bottom-card--wide">
@@ -281,6 +419,130 @@ export default function Groups() {
           </ul>
         </div>
       </section>
+
+      {modalOpen && (
+        <div className="students-modal-overlay" onClick={closeModal} role="dialog" aria-modal="true" aria-labelledby="groups-modal-title">
+          <div className="students-modal" onClick={(e) => e.stopPropagation()}>
+            <h3 id="groups-modal-title" className="students-modal-title">
+              {editingGroup ? t('groups.modalTitleEdit') : t('groups.modalTitleCreate')}
+            </h3>
+            <form onSubmit={handleSubmit}>
+              <div className="students-modal-field">
+                <label htmlFor="group-code">{t('groups.modalCode')}</label>
+                <input
+                  id="group-code"
+                  type="text"
+                  value={formData.code}
+                  onChange={(e) => setFormData((d) => ({ ...d, code: e.target.value }))}
+                  required
+                  placeholder={t('groups.modalCodePlaceholder')}
+                />
+              </div>
+              <div className="students-modal-field">
+                <label htmlFor="group-preceptor">{t('groups.modalPreceptor')}</label>
+                <select
+                  id="group-preceptor"
+                  value={formData.preceptorId}
+                  onChange={(e) => setFormData((d) => ({ ...d, preceptorId: e.target.value }))}
+                  required
+                >
+                  <option value="">—</option>
+                  {preceptors.map((p) => (
+                    <option key={p.id} value={p.id}>{p.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="students-modal-field">
+                <label htmlFor="group-hospital">{t('groups.modalHospital')}</label>
+                <input
+                  id="group-hospital"
+                  type="text"
+                  value={formData.hospitalName}
+                  onChange={(e) => setFormData((d) => ({ ...d, hospitalName: e.target.value }))}
+                  placeholder={t('groups.modalHospitalPlaceholder')}
+                />
+              </div>
+              <div className="students-modal-field">
+                <label htmlFor="group-rotation-type">{t('groups.modalRotationType')}</label>
+                <select
+                  id="group-rotation-type"
+                  value={formData.rotationType}
+                  onChange={(e) => setFormData((d) => ({ ...d, rotationType: e.target.value }))}
+                >
+                  <option value="">—</option>
+                  {ROTATION_TYPES.map((rt) => (
+                    <option key={rt} value={rt}>{t(rotationTypeLabelKey(rt))}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="students-modal-field">
+                <label htmlFor="group-rotation-current">{t('groups.modalRotationCurrent')}</label>
+                <select
+                  id="group-rotation-current"
+                  value={formData.rotationCurrent}
+                  onChange={(e) => setFormData((d) => ({ ...d, rotationCurrent: e.target.value }))}
+                >
+                  {[1, 2, 3, 4, 5, 6].map((n) => (
+                    <option key={n} value={n}>{n}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="students-modal-field">
+                <label htmlFor="group-cycle">{t('groups.modalCycle')}</label>
+                <input
+                  id="group-cycle"
+                  type="text"
+                  value={formData.cycle}
+                  onChange={(e) => setFormData((d) => ({ ...d, cycle: e.target.value }))}
+                  placeholder={t('groups.modalCyclePlaceholder')}
+                />
+              </div>
+              <div className="students-modal-actions">
+                <button type="button" className="dashboard-btn dashboard-btn--secondary" onClick={closeModal}>
+                  {t('groups.modalCancel')}
+                </button>
+                <button type="submit" className="dashboard-btn dashboard-btn--primary" disabled={saving}>
+                  {saving ? t('groups.modalSaving') : t('groups.modalSave')}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {deleteConfirmGroup && (
+        <div className="students-dialog-overlay" onClick={closeDeleteConfirm} role="alertdialog" aria-modal="true" aria-labelledby="groups-dialog-title">
+          <div className="students-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="students-dialog-icon-wrap">
+              <span className="material-icons" aria-hidden>warning</span>
+            </div>
+            <h3 id="groups-dialog-title" className="students-dialog-title">
+              {t('groups.deleteConfirmTitle')}
+            </h3>
+            <p className="students-dialog-message">
+              {t('groups.deleteConfirmMessage', { code: displayCode(deleteConfirmGroup.code) })}
+            </p>
+            <div className="students-dialog-actions">
+              <button
+                type="button"
+                className="dashboard-btn dashboard-btn--secondary"
+                onClick={closeDeleteConfirm}
+                disabled={deleting}
+              >
+                {t('groups.deleteConfirmCancel')}
+              </button>
+              <button
+                type="button"
+                className="dashboard-btn dashboard-btn--danger"
+                onClick={handleConfirmDelete}
+                disabled={deleting}
+              >
+                {deleting ? t('groups.deleteConfirmExcluding') : t('groups.deleteConfirmExclude')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }

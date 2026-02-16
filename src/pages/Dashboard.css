@@ -201,6 +201,10 @@
   gap: 0.75rem;
 }
 
+.dashboard-header-lang.language-switcher {
+  flex-shrink: 0;
+}
+
 .dashboard-search-wrap {
   position: relative;
   width: 16rem;

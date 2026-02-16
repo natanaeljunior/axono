@@ -5,6 +5,7 @@ import { useProfile, PROFILES } from '../contexts/ProfileContext'
 import { useAuth } from '../contexts/AuthContext'
 import { LOGO_AXONO } from '../constants/brand'
 import PersonaSelect from './PersonaSelect'
+import LanguageSwitcher from './LanguageSwitcher'
 import './AppHeader.css'
 
 function allowedProfiles(roles) {
@@ -73,6 +74,7 @@ export default function AppHeader({ variant = 'full', navItems = [], className =
         )}
 
         <div className="app-header-right">
+          <LanguageSwitcher className="app-header-lang" />
           <PersonaSelect
             allowed={allowed}
             value={allowed.includes(profile) ? profile : allowed[0]}

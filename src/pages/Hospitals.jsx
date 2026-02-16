@@ -280,21 +280,6 @@ export default function Hospitals() {
           </button>
         </div>
       </div>
-
-      <aside className="hospitals-map-float" aria-label={t('hospitals.mapTitle')}>
-        <div className="hospitals-map-card">
-          <div className="hospitals-map-head">
-            <span className="hospitals-map-title">{t('hospitals.mapTitle')}</span>
-            <span className="material-icons hospitals-map-open">open_in_new</span>
-          </div>
-          <div className="hospitals-map-preview">
-            <div className="hospitals-map-pin">
-              <span className="material-icons">location_on</span>
-            </div>
-          </div>
-          <p className="hospitals-map-hint">{t('hospitals.mapHint')}</p>
-        </div>
-      </aside>
     </>
   )
 }

@@ -8,14 +8,14 @@ const resources = {
   es: { translation: es },
 }
 
-const savedLanguage = localStorage.getItem('axono-lang') || 'pt-BR'
+const savedLanguage = localStorage.getItem('axono-lang') || 'es'
 
 i18n
   .use(initReactI18next)
   .init({
     resources,
     lng: savedLanguage,
-    fallbackLng: 'pt-BR',
+    fallbackLng: 'es',
     interpolation: {
       escapeValue: false,
     },

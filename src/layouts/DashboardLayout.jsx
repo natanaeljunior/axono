@@ -5,6 +5,7 @@ import { useProfile, PROFILES } from '../contexts/ProfileContext'
 import { useAuth } from '../contexts/AuthContext'
 import { LOGO_AXONO } from '../constants/brand'
 import PersonaSelect from '../components/PersonaSelect'
+import LanguageSwitcher from '../components/LanguageSwitcher'
 import PreceptorLayout from './PreceptorLayout'
 import StudentLayout from './StudentLayout'
 import '../pages/Dashboard.css'
@@ -177,6 +178,7 @@ export default function DashboardLayout() {
             )}
           </div>
           <div className="dashboard-header-actions">
+            <LanguageSwitcher className="dashboard-header-lang" />
             <PersonaSelect
               allowed={allowed}
               value={allowed.includes(profile) ? profile : allowed[0]}
