@@ -35,30 +35,6 @@ export default function StudentLayout() {
             >
               {t('dashboard.nav.studentHome')}
             </NavLink>
-            <NavLink
-              to="/dashboard/cronograma"
-              className={({ isActive }) =>
-                `student-layout-nav-link ${isActive ? 'student-layout-nav-link--active' : ''}`
-              }
-            >
-              {t('studentLayout.schedule')}
-            </NavLink>
-            <NavLink
-              to="/dashboard/notas"
-              className={({ isActive }) =>
-                `student-layout-nav-link ${isActive ? 'student-layout-nav-link--active' : ''}`
-              }
-            >
-              {t('studentLayout.grades')}
-            </NavLink>
-            <NavLink
-              to="/dashboard/suporte"
-              className={({ isActive }) =>
-                `student-layout-nav-link ${isActive ? 'student-layout-nav-link--active' : ''}`
-              }
-            >
-              {t('studentLayout.support')}
-            </NavLink>
           </nav>
           <div className="student-layout-header-right">
             <div className="student-layout-profile-switcher-wrap">

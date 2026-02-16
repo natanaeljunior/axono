@@ -36,7 +36,7 @@
 }
 
 .student-home-new-card {
-  background: #f8fafc;
+  background: #f6f6f8;
   border: 1px solid #e2e8f0;
   border-radius: 1rem;
   padding: 1.25rem;
@@ -87,7 +87,7 @@
 
 .student-home-new-presence-bar {
   height: 0.5rem;
-  background: #e2e8f0;
+  background: #f6f6f8;
   border-radius: 9999px;
   overflow: hidden;
   margin-top: 0.5rem;
@@ -140,7 +140,7 @@
 }
 
 .student-home-new-btn--secondary:hover {
-  background: #f8fafc;
+  background: #f6f6f8;
 }
 
 /* Layout: Atividade + Orientações lado a lado */
@@ -188,7 +188,7 @@
   align-items: flex-start;
   gap: 1rem;
   padding: 1rem;
-  background: #f8fafc;
+  background: #f6f6f8;
   border: 1px solid #e2e8f0;
   border-radius: 0.75rem;
   margin-bottom: 0.75rem;

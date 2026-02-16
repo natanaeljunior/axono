@@ -6,8 +6,10 @@
 .student-cert-unified {
   margin: 0;
   min-height: 100vh;
-  background: #f8fafc;
+  background: #f6f6f8;
   font-family: 'Inter', var(--font-display), sans-serif;
+  display: flex;
+  flex-direction: column;
   /* reserva espaço para o nav fixo (~altura do header) */
   padding-top: 4.5rem;
 }
@@ -106,6 +108,7 @@
 
 /* Main */
 .student-cert-main {
+  flex: 1;
   max-width: min(96rem, 100%);
   margin: 0 auto;
   padding: 2rem 1.5rem;
@@ -329,7 +332,7 @@
 }
 
 .student-cert-generate-btn:hover {
-  background: #f8fafc;
+  background: #f6f6f8;
 }
 
 .student-cert-generate-btn .material-icons {
@@ -415,7 +418,7 @@
 }
 
 .student-cert-rotation-card--pending {
-  background: #f8fafc;
+  background: #f6f6f8;
   border: 1px dashed #e2e8f0;
   opacity: 0.6;
 }
@@ -560,17 +563,29 @@
 
 .student-cert-rotation-btn {
   width: 100%;
-  padding: 0.375rem;
-  font-size: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  border: 1px solid #f1f5f9;
-  border-radius: 0.375rem;
-  background: transparent;
+  border-radius: 0.5rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  text-decoration: none;
+  transition: background 0.2s;
 }
 
-.student-cert-rotation-btn:hover {
-  background: #f8fafc;
+.student-cert-rotation-btn .material-icons { font-size: 1rem; }
+
+.student-cert-rotation-btn--report {
+  background: rgba(23, 84, 207, 0.1);
+  color: var(--cert-primary);
+  border: 1px solid rgba(23, 84, 207, 0.3);
+}
+
+.student-cert-rotation-btn--report:hover {
+  background: rgba(23, 84, 207, 0.2);
 }
 
 .student-cert-rotation-btn--primary {
@@ -766,7 +781,7 @@
 
 .student-cert-legal-footer {
   padding: 1rem;
-  background: #f8fafc;
+  background: #f6f6f8;
   text-align: center;
   border-top: 1px solid #f1f5f9;
 }
@@ -780,9 +795,14 @@
 
 /* Footer */
 .student-cert-footer {
-  margin-top: 5rem;
-  padding: 3rem 1.5rem;
+  margin-top: auto;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: 1.5rem 1.5rem 1.5rem;
   border-top: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  box-sizing: border-box;
 }
 
 .student-cert-footer-inner {

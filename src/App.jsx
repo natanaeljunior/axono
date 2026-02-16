@@ -45,9 +45,9 @@ function App() {
         <Route path="validar-presencas/relatorio/:id" element={<PreceptorReportDetail />} />
         <Route path="validar-presencas" element={<PreceptorValidate />} />
         <Route path="meu-grupo" element={<PreceptorMyGroup />} />
-        <Route path="certificacao" element={<StudentReportsCertification />} />
         <Route path="certificacao/relatorio/:rotationKey" element={<StudentRotationReport />} />
         <Route path="certificacao/certificado-final" element={<StudentFinalCertification />} />
+        <Route path="certificacao" element={<StudentReportsCertification />} />
         <Route path="cronograma" element={<Placeholder title="Cronograma" />} />
         <Route path="notas" element={<Placeholder title="Notas" />} />
         <Route path="suporte" element={<Placeholder title="Suporte" />} />

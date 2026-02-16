@@ -153,7 +153,7 @@ button.preceptor-home-action-card {
 }
 
 .preceptor-home-action-card:hover .preceptor-home-action-card-btn--secondary {
-  background: #f8fafc;
+  background: #f6f6f8;
 }
 
 /* Activity section */
@@ -303,12 +303,12 @@ button.preceptor-home-action-card {
 }
 
 .preceptor-home-feed-item-btn--secondary {
-  background: #f8fafc;
+  background: #f6f6f8;
   color: #475569;
 }
 
 .preceptor-home-feed-item-btn--secondary:hover {
-  background: #f1f5f9;
+  background: #f6f6f8;
 }
 
 .preceptor-home-activity-more {

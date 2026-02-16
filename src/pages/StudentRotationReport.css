@@ -1,7 +1,7 @@
 /* StudentRotationReport - Relatório PDF por rotação */
 .student-report-page {
   min-height: 100vh;
-  background: #e5e7eb;
+  background: #f6f6f8;
   font-family: 'Inter', var(--font-display), sans-serif;
 }
 

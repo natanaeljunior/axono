@@ -97,16 +97,6 @@ export default function StudentReportsCertification() {
               <span className="student-cert-accent-bar" />
               <h2 className="student-cert-section-title">{t('studentCert.rotationStatus', 'Status das Rotações')}</h2>
             </div>
-            <div className="student-cert-rotations-actions">
-              <button type="button" className="student-cert-action-btn">
-                <span className="material-icons">history</span>
-                {t('studentCert.logs', 'Logs')}
-              </button>
-              <button type="button" className="student-cert-action-btn">
-                <span className="material-icons">calendar_month</span>
-                {t('studentCert.viewCalendar', 'Calendário')}
-              </button>
-            </div>
           </div>
 
           <div className="student-cert-rotations-grid">
@@ -147,7 +137,12 @@ export default function StudentReportsCertification() {
                     <div className="student-cert-rotation-row"><span>{t('studentCert.hoursLabel')}:</span><span>{r.hours}</span></div>
                   )}
                 </div>
-                {r.status === 'completed' && <Link to={`/dashboard/certificacao/relatorio/${r.key}`} className="student-cert-rotation-btn">{t('studentCert.report', 'Relatório')}</Link>}
+                {r.status === 'completed' && (
+                  <Link to={`/dashboard/certificacao/relatorio/${r.key}`} className="student-cert-rotation-btn student-cert-rotation-btn--report">
+                    <span className="material-icons">description</span>
+                    {t('studentCert.report', 'Ver Relatório')}
+                  </Link>
+                )}
                 {r.status === 'current' && <Link to="/dashboard/formulario-diario" className="student-cert-rotation-btn student-cert-rotation-btn--primary">{t('studentCert.launchActivities', 'Lançar')}</Link>}
                 {r.status === 'pending' && <div className="student-cert-rotation-waiting">{t('studentCert.awaiting', 'Aguardando')}</div>}
               </div>

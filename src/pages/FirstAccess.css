@@ -22,7 +22,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
-  background: #f8fafc;
+  background: #f6f6f8;
   border-bottom: 1px solid #f1f5f9;
 }
 
@@ -142,7 +142,7 @@
   font-size: 0.875rem;
   font-family: var(--font-display);
   color: #0f172a;
-  background: #f8fafc;
+  background: #f6f6f8;
   border: 1px solid #e2e8f0;
   border-radius: 0.5rem;
 }
@@ -199,7 +199,7 @@
 .first-access-strength-segment {
   width: 1.5rem;
   height: 4px;
-  background: #e2e8f0;
+  background: #f6f6f8;
   border-radius: 2px;
   transition: background 0.2s;
 }
