@@ -312,6 +312,24 @@
 }
 
 /* Formulário - campos com entrada em sequência */
+.login-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.5rem;
+  color: #dc2626;
+  font-size: 0.875rem;
+  animation: fade-in-up 0.3s ease;
+}
+
+.login-error .material-icons {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
 .login-form {
   padding: 0 2rem 2rem;
   display: flex;

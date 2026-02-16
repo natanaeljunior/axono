@@ -48,6 +48,10 @@
 
   /* Tipografia */
   --font-display: 'Inter', system-ui, sans-serif;
+
+  /* Largura máxima do conteúdo (aluno e preceptor iguais) */
+  --layout-max-width: 92rem;
+  --layout-padding-x: 1.5rem;
 }
 
 /* Dark mode */

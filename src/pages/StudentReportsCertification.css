@@ -10,47 +10,14 @@
   font-family: 'Inter', var(--font-display), sans-serif;
   display: flex;
   flex-direction: column;
-  /* reserva espaço para o nav fixo (~altura do header) */
-  padding-top: 4.5rem;
 }
 
-/* Nav - Portal do Interno - fixo no topo da viewport, sem margem */
-.student-cert-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin: 0;
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid #e2e8f0;
-  padding: 1rem 1.5rem;
-  z-index: 50;
+/* Título da página (header é global no layout) */
+.student-cert-page-title {
+  margin-bottom: 1rem;
 }
 
-.student-cert-nav-inner {
-  max-width: min(96rem, 100%);
-  margin: 0 auto;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.student-cert-nav-brand {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.student-cert-nav-logo {
-  height: 2.25rem;
-  width: auto;
-  display: block;
-  flex-shrink: 0;
-}
-
-.student-cert-nav-title {
+.student-cert-page-title-heading {
   margin: 0;
   font-size: 1.125rem;
   font-weight: 700;
@@ -58,7 +25,7 @@
   color: #0f172a;
 }
 
-.student-cert-nav-subtitle {
+.student-cert-page-title-sub {
   margin: 0.125rem 0 0;
   font-size: 0.625rem;
   font-weight: 700;
@@ -67,51 +34,12 @@
   color: #64748b;
 }
 
-.student-cert-nav-user {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.student-cert-nav-user-info {
-  text-align: right;
-}
-
-.student-cert-nav-user-name {
-  margin: 0;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #0f172a;
-}
-
-.student-cert-nav-user-ra {
-  margin: 0.125rem 0 0;
-  font-size: 0.6875rem;
-  color: #64748b;
-}
-
-.student-cert-nav-avatar {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-  overflow: hidden;
-  background: #f1f5f9;
-}
-
-.student-cert-nav-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Main */
+/* Main (mesma largura que layout preceptor) */
 .student-cert-main {
   flex: 1;
-  max-width: min(96rem, 100%);
+  max-width: min(var(--layout-max-width, 92rem), 100%);
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 2rem var(--layout-padding-x, 1.5rem);
   width: 100%;
   box-sizing: border-box;
   display: flex;
@@ -806,9 +734,10 @@
 }
 
 .student-cert-footer-inner {
-  max-width: min(96rem, 100%);
+  max-width: min(var(--layout-max-width, 92rem), 100%);
   margin: 0 auto;
   width: 100%;
+  padding: 0 var(--layout-padding-x, 1.5rem);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
-import { LOGO_AXONO } from '../constants/brand'
 import './StudentReportsCertification.css'
 
 const ROTATIONS = [
@@ -25,30 +24,13 @@ export default function StudentReportsCertification() {
 
   return (
     <div className="student-cert-unified">
-      {isCertPage && (
-        <nav className="student-cert-nav">
-          <div className="student-cert-nav-inner">
-            <div className="student-cert-nav-brand">
-              <img src={LOGO_AXONO} alt="" className="student-cert-nav-logo" />
-              <div>
-                <h1 className="student-cert-nav-title">{t('studentCert.portalTitle', 'Portal do Interno')}</h1>
-                <p className="student-cert-nav-subtitle">{t('studentCert.unifiedReport', 'RELATÓRIO UNIFICADO (VISÃO ÚNICA)')}</p>
-              </div>
-            </div>
-            <div className="student-cert-nav-user">
-              <div className="student-cert-nav-user-info">
-                <p className="student-cert-nav-user-name">{t('studentCert.studentName', 'Dr. Lucas Silva Ferreira')}</p>
-                <p className="student-cert-nav-user-ra">{t('studentCert.studentRa', 'RA: 2021004589 • 12º Semestre')}</p>
-              </div>
-              <div className="student-cert-nav-avatar">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqAu_n-o3GT-xNJL7DVt9vzxsTNQgvrHG3v9JZ26Lqs6CIOByMVuY2QSH9Qpst0IYRq0jZyt7_fUnsk1lmJSW7QSQlRUcJ9PdSFIWkkC3gCk6pyhOIIB9JP0oMZ6MWycYWtHIA8KiaRyuOGwujR96YfV9w7tXK8FcE15v_Z42mCoBHYmzVjzDRAjQKjCu8epTJCV8sIojLIUIHVXK4JNU_K16YpH4rt7N5IMeyo7vF7HJRxaTkZn0bWmK3twpjgh-90omTyXgsJOk" alt="" />
-              </div>
-            </div>
-          </div>
-        </nav>
-      )}
-
       <main className="student-cert-main">
+        {isCertPage && (
+          <div className="student-cert-page-title">
+            <h1 className="student-cert-page-title-heading">{t('studentCert.portalTitle', 'Portal do Interno')}</h1>
+            <p className="student-cert-page-title-sub">{t('studentCert.unifiedReport', 'RELATÓRIO UNIFICADO (VISÃO ÚNICA)')}</p>
+          </div>
+        )}
         <header className="student-cert-hero">
           <div className="student-cert-progress-card">
             <div>

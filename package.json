@@ -1,5 +1,5 @@
 {
-  "name": "residency-flow",
+  "name": "axono",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.13.5",
     "i18next": "^25.8.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

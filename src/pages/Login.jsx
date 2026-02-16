@@ -1,20 +1,71 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../components/LanguageSwitcher'
 import { LOGO_AXONO } from '../constants/brand'
+import { useAuth } from '../contexts/AuthContext'
+import { useProfile } from '../contexts/ProfileContext'
+import { PROFILES } from '../contexts/ProfileContext'
 import './Login.css'
+
+const ROLE_TO_PROFILE = {
+  COORDENACAO: PROFILES.COORDENACAO,
+  DIRETOR: PROFILES.COORDENACAO,
+  ALUNO: PROFILES.ALUNO,
+  PRECEPTOR: PROFILES.PRECEPTOR,
+}
+
+/** Escolhe o perfil inicial a partir das permissões do usuário (prioridade: coordenação > preceptor > aluno). */
+function profileFromRoles(roles) {
+  const list = Array.isArray(roles) ? roles : []
+  if (list.includes('COORDENACAO') || list.includes('DIRETOR')) return PROFILES.COORDENACAO
+  if (list.includes('PRECEPTOR')) return PROFILES.PRECEPTOR
+  if (list.includes('ALUNO')) return PROFILES.ALUNO
+  return PROFILES.COORDENACAO
+}
 
 export default function Login() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { login, isAuthenticated } = useAuth()
+  const { setProfile } = useProfile()
   const [showPassword, setShowPassword] = useState(false)
   const [rememberMe, setRememberMe] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  function handleSubmit(e) {
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault()
-    // TODO: integrar com auth; por ora redireciona para configuração de primeiro acesso
-    navigate('/dashboard')
+    setError('')
+    const form = e.target
+    const identifier = form.identifier?.value
+    const password = form.password?.value
+
+    if (!identifier?.trim()) {
+      setError(t('login.identifierRequired') || 'Informe e-mail, matrícula ou CRM.')
+      return
+    }
+    if (!password) {
+      setError(t('login.passwordRequired') || 'Informe a senha.')
+      return
+    }
+
+    setLoading(true)
+    try {
+      const { user } = await login(identifier, password)
+      const profile = profileFromRoles(user.roles)
+      setProfile(profile)
+      navigate('/dashboard', { replace: true })
+    } catch (err) {
+      const msg = err.response?.data?.message || err.message || 'Credenciais inválidas.'
+      setError(msg)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -44,6 +95,12 @@ export default function Login() {
           </div>
 
           <form className="login-form" onSubmit={handleSubmit}>
+            {error && (
+              <div className="login-error" role="alert">
+                <span className="material-icons">error_outline</span>
+                {error}
+              </div>
+            )}
             <div className="login-field">
               <label htmlFor="identifier">{t('login.identifierLabel')}</label>
               <div className="login-input-wrap">
@@ -99,8 +156,8 @@ export default function Login() {
               <label htmlFor="remember-me">{t('login.rememberMe')}</label>
             </div>
 
-            <button type="submit" className="login-submit">
-              {t('login.submit')}
+            <button type="submit" className="login-submit" disabled={loading}>
+              {loading ? (t('login.submitting') || 'Entrando...') : t('login.submit')}
             </button>
           </form>
 

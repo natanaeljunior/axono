@@ -1,43 +1,26 @@
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useProfile, PROFILES } from '../contexts/ProfileContext'
-import { LOGO_AXONO } from '../constants/brand'
+import AppHeader from '../components/AppHeader'
 import PreceptorLayout from './PreceptorLayout'
 import StudentLayout from './StudentLayout'
 import '../pages/Dashboard.css'
 
-const NAV_COORDENACAO = [
-  { key: 'dashboard', icon: 'dashboard', path: '/dashboard' },
-  { key: 'students', icon: 'school', path: '/dashboard/alunos' },
-  { key: 'groups', icon: 'groups', path: '/dashboard/grupos' },
-  { key: 'preceptors', icon: 'medical_services', path: '/dashboard/preceptores' },
-  { key: 'hospitals', icon: 'local_hospital', path: '/dashboard/hospitais' },
-  { key: 'rotations', icon: 'calendar_month', path: '/dashboard/rotacoes' },
-  { key: 'reports', icon: 'assessment', path: '/dashboard/relatorios' },
+const NAV_COORDENACAO_ITEMS = [
+  { key: 'dashboard', icon: 'dashboard', path: '/dashboard', labelKey: 'dashboard.nav.dashboard' },
+  { key: 'students', icon: 'school', path: '/dashboard/alunos', labelKey: 'dashboard.nav.students' },
+  { key: 'groups', icon: 'groups', path: '/dashboard/grupos', labelKey: 'dashboard.nav.groups' },
+  { key: 'preceptors', icon: 'medical_services', path: '/dashboard/preceptores', labelKey: 'dashboard.nav.preceptors' },
+  { key: 'hospitals', icon: 'local_hospital', path: '/dashboard/hospitais', labelKey: 'dashboard.nav.hospitals' },
+  { key: 'rotations', icon: 'calendar_month', path: '/dashboard/rotacoes', labelKey: 'dashboard.nav.rotations' },
+  { key: 'reports', icon: 'assessment', path: '/dashboard/relatorios', labelKey: 'dashboard.nav.reports' },
+  { key: 'params', icon: 'settings', path: '/dashboard/parametros', labelKey: 'dashboard.nav.params' },
 ]
-
-const NAV_ALUNO = [
-  { key: 'studentHome', icon: 'home', path: '/dashboard' },
-  { key: 'studentForm', icon: 'edit_note', path: '/dashboard/formulario-diario' },
-  { key: 'studentCert', icon: 'description', path: '/dashboard/certificacao' },
-]
-
-const NAV_PRECEPTOR = [
-  { key: 'preceptorHome', icon: 'home', path: '/dashboard' },
-  { key: 'preceptorValidate', icon: 'check_circle', path: '/dashboard/validar-presencas' },
-]
-
-function getNavItems(profile) {
-  if (profile === PROFILES.ALUNO) return NAV_ALUNO
-  if (profile === PROFILES.PRECEPTOR) return NAV_PRECEPTOR
-  return NAV_COORDENACAO
-}
 
 export default function DashboardLayout() {
   const { t } = useTranslation()
-  const navigate = useNavigate()
   const location = useLocation()
-  const { profile, setProfile } = useProfile()
+  const { profile } = useProfile()
 
   const isStudents = location.pathname.includes('/alunos')
   const isGroups = location.pathname.includes('/grupos')
@@ -77,15 +60,6 @@ export default function DashboardLayout() {
                           ? t('preceptorHome.breadcrumb')
                           : t('dashboard.breadcrumb')
 
-  const navItems = getNavItems(profile)
-  const showParamsSection = profile === PROFILES.COORDENACAO
-
-  const handleProfileChange = (e) => {
-    const value = e.target.value
-    setProfile(value)
-    navigate('/dashboard')
-  }
-
   if (profile === PROFILES.ALUNO) {
     return (
       <StudentLayout>
@@ -103,59 +77,8 @@ export default function DashboardLayout() {
   }
 
   return (
-    <div className="dashboard-layout">
-      <aside className="dashboard-sidebar">
-        <div className="dashboard-sidebar-brand">
-          <img src={LOGO_AXONO} alt="" className="dashboard-sidebar-logo" />
-        </div>
-        <nav className="dashboard-nav">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.key}
-              to={item.path}
-              end={item.path === '/dashboard'}
-              className={({ isActive }) =>
-                `dashboard-nav-item ${isActive ? 'dashboard-nav-item--active' : ''}`
-              }
-            >
-              <span className="material-icons">{item.icon}</span>
-              <span>{t(`dashboard.nav.${item.key}`)}</span>
-            </NavLink>
-          ))}
-        </nav>
-        {showParamsSection && (
-          <>
-            <div className="dashboard-sidebar-divider">
-              <span>{t('dashboard.nav.settingsSection')}</span>
-            </div>
-            <nav className="dashboard-nav">
-              <NavLink
-                to="/dashboard/parametros"
-                className={({ isActive }) =>
-                  `dashboard-nav-item ${isActive ? 'dashboard-nav-item--active' : ''}`
-                }
-              >
-                <span className="material-icons">settings</span>
-                <span>{t('dashboard.nav.params')}</span>
-              </NavLink>
-            </nav>
-          </>
-        )}
-        <div className="dashboard-user">
-          <div className="dashboard-user-avatar">
-            {profile === PROFILES.ALUNO ? 'AS' : profile === PROFILES.PRECEPTOR ? 'RM' : 'CM'}
-          </div>
-          <div className="dashboard-user-info">
-            <span className="dashboard-user-name">
-              {profile === PROFILES.ALUNO ? t('profileSwitcher.userAluno') : profile === PROFILES.PRECEPTOR ? t('profileSwitcher.userPreceptor') : t('dashboard.userName')}
-            </span>
-            <span className="dashboard-user-role">
-              {profile === PROFILES.ALUNO ? t('profileSwitcher.roleAluno') : profile === PROFILES.PRECEPTOR ? t('profileSwitcher.rolePreceptor') : t('dashboard.userRole')}
-            </span>
-          </div>
-        </div>
-      </aside>
-
+    <div className="dashboard-layout dashboard-layout--header-top">
+      <AppHeader variant="full" navItems={NAV_COORDENACAO_ITEMS} />
       <main className="dashboard-main">
         <header className={`dashboard-header ${isParams ? 'dashboard-header--params' : ''}`}>
           <div className="dashboard-header-left">
@@ -171,20 +94,6 @@ export default function DashboardLayout() {
             )}
           </div>
           <div className="dashboard-header-actions">
-            <div className="dashboard-profile-switcher-wrap">
-              <span className="material-icons dashboard-profile-switcher-icon">person</span>
-              <select
-                className="dashboard-profile-switcher"
-                value={profile}
-                onChange={handleProfileChange}
-                aria-label={t('profileSwitcher.label')}
-              >
-                <option value={PROFILES.COORDENACAO}>{t('profileSwitcher.coordenacao')}</option>
-                <option value={PROFILES.ALUNO}>{t('profileSwitcher.aluno')}</option>
-                <option value={PROFILES.PRECEPTOR}>{t('profileSwitcher.preceptor')}</option>
-              </select>
-              <span className="material-icons dashboard-profile-switcher-arrow">expand_more</span>
-            </div>
             {isParams ? (
               <>
                 <button type="button" className="dashboard-btn dashboard-btn--secondary dashboard-btn--header">
@@ -195,16 +104,14 @@ export default function DashboardLayout() {
                 </button>
               </>
             ) : (
-              <>
-                {profile === PROFILES.COORDENACAO && (
-                  <div className="dashboard-cycle-select-wrap">
-                    <select className="dashboard-cycle-select" aria-label={t('dashboard.cycle')}>
-                      <option>{t('dashboard.cycleValue')}</option>
-                    </select>
-                    <span className="material-icons dashboard-cycle-arrow">expand_more</span>
-                  </div>
-                )}
-              </>
+              profile === PROFILES.COORDENACAO && (
+                <div className="dashboard-cycle-select-wrap">
+                  <select className="dashboard-cycle-select" aria-label={t('dashboard.cycle')}>
+                    <option>{t('dashboard.cycleValue')}</option>
+                  </select>
+                  <span className="material-icons dashboard-cycle-arrow">expand_more</span>
+                </div>
+              )
             )}
           </div>
         </header>

@@ -7,6 +7,7 @@
   padding-bottom: 5rem;
 }
 
+/* Header usa AppHeader (estilos em AppHeader.css); aqui só posicionamento */
 .preceptor-layout-header {
   position: sticky;
   top: 0;
@@ -15,190 +16,17 @@
   border-bottom: 1px solid #e5eaf2;
 }
 
-.preceptor-layout-header-inner {
-  max-width: 80rem;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  height: 5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.preceptor-layout-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: var(--color-primary);
-}
-
-.preceptor-layout-brand-logo {
-  height: 2rem;
-  width: auto;
-  display: block;
-}
-
-.preceptor-layout-nav {
-  display: none;
-  align-items: center;
-  gap: 2rem;
-  height: 100%;
-}
-
-@media (min-width: 768px) {
-  .preceptor-layout-nav {
-    display: flex;
-  }
-}
-
-.preceptor-layout-nav-link {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 0.25rem;
-  color: #64748b;
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: color 0.2s;
-  border-bottom: 2px solid transparent;
-}
-
-.preceptor-layout-nav-link:hover {
-  color: var(--color-primary);
-}
-
-.preceptor-layout-nav-link--active {
-  color: var(--color-primary);
-  font-weight: 600;
-  border-bottom-color: var(--color-primary);
-}
-
-.preceptor-layout-header-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.preceptor-layout-profile-switcher-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.75rem;
-  background: #f6f6f8;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  position: relative;
-}
-
-.preceptor-layout-profile-switcher-icon {
-  font-size: 1.125rem !important;
-  color: var(--color-primary);
-}
-
-.preceptor-layout-profile-switcher {
-  appearance: none;
-  padding: 0.15rem 1.5rem 0.15rem 0;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  font-family: inherit;
-  color: #334155;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  min-width: 7rem;
-}
-
-.preceptor-layout-profile-switcher-arrow {
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1rem !important;
-  color: #94a3b8;
-  pointer-events: none;
-}
-
-.preceptor-layout-icon-btn {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background: #f1f5f9;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #64748b;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.preceptor-layout-icon-btn:hover {
-  background: #f6f6f8;
-}
-
-.preceptor-layout-icon-btn .material-icons {
-  font-size: 1.25rem;
-}
-
-.preceptor-layout-user {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding-left: 1rem;
-  border-left: 1px solid #f1f5f9;
-}
-
-.preceptor-layout-user-info {
-  text-align: right;
-  display: none;
-}
-
-@media (min-width: 640px) {
-  .preceptor-layout-user-info {
-    display: block;
-  }
-}
-
-.preceptor-layout-user-name {
-  margin: 0;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: #1e293b;
-}
-
-.preceptor-layout-user-role {
-  margin: 0;
-  font-size: 0.625rem;
-  color: #94a3b8;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.preceptor-layout-avatar {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background: #dbeafe;
-  border: 2px solid #fff;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  color: var(--color-primary);
-  flex-shrink: 0;
-}
-
 .preceptor-layout-main {
   width: 100%;
   margin: 0;
 }
 
 .preceptor-layout-main-inner {
-  max-width: 80rem;
+  max-width: min(var(--layout-max-width, 92rem), 100%);
   margin: 0 auto;
-  padding: 2.5rem 1.5rem;
+  width: 100%;
+  padding: 2rem var(--layout-padding-x, 1.5rem) 4rem;
+  box-sizing: border-box;
 }
 
 /* Bottom nav - mobile */

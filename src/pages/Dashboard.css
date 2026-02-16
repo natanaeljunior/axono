@@ -133,6 +133,14 @@
   flex-direction: column;
 }
 
+/* Coordenação: header único no topo (sem sidebar) */
+.dashboard-layout--header-top {
+  flex-direction: column;
+}
+.dashboard-layout--header-top .dashboard-main {
+  margin-left: 0;
+}
+
 .dashboard-main-outlet {
   flex: 1;
   min-height: 0;

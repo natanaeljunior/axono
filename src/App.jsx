@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
+import ProtectedRoute from './components/ProtectedRoute'
+import PublicRoute from './components/PublicRoute'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
 import FirstAccess from './pages/FirstAccess'
@@ -26,10 +28,26 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/esqueci-senha" element={<ForgotPassword />} />
-      <Route path="/primeiro-acesso" element={<FirstAccess />} />
-      <Route path="/dashboard" element={<DashboardLayout />}>
+      <Route path="/login" element={
+        <PublicRoute>
+          <Login />
+        </PublicRoute>
+      } />
+      <Route path="/esqueci-senha" element={
+        <PublicRoute>
+          <ForgotPassword />
+        </PublicRoute>
+      } />
+      <Route path="/primeiro-acesso" element={
+        <PublicRoute>
+          <FirstAccess />
+        </PublicRoute>
+      } />
+      <Route path="/dashboard" element={
+        <ProtectedRoute>
+          <DashboardLayout />
+        </ProtectedRoute>
+      }>
         <Route index element={<DashboardHomeSwitcher />} />
         <Route path="alunos" element={<Students />} />
         <Route path="grupos" element={<Groups />} />

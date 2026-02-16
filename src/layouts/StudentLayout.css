@@ -10,6 +10,7 @@
   color: #334155;
 }
 
+/* Header usa AppHeader (estilos em AppHeader.css); aqui só posicionamento */
 .student-layout-header {
   position: fixed;
   top: 0;
@@ -20,235 +21,6 @@
   z-index: 50;
   background: #fff;
   border-bottom: 1px solid #e5eaf2;
-}
-
-.student-layout-header-inner {
-  max-width: min(96rem, 100%);
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 1.5rem;
-  height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.student-layout-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
-}
-
-.student-layout-brand-logo {
-  height: 2rem;
-  width: auto;
-  display: block;
-}
-
-.student-layout-nav {
-  display: none;
-  align-items: center;
-  gap: 1.5rem;
-  height: 100%;
-}
-
-@media (min-width: 768px) {
-  .student-layout-nav {
-    display: flex;
-  }
-}
-
-.student-layout-nav-link {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 0.25rem;
-  color: #64748b;
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: color 0.2s;
-  border-bottom: 2px solid transparent;
-}
-
-.student-layout-nav-link:hover {
-  color: var(--color-primary);
-}
-
-.student-layout-nav-link--active {
-  color: var(--color-primary);
-  font-weight: 600;
-  border-bottom-color: var(--color-primary);
-}
-
-.student-layout-header-right {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex: 1;
-  justify-content: flex-end;
-  min-width: 0;
-}
-
-.student-layout-search-wrap {
-  flex: 1;
-  max-width: 280px;
-  position: relative;
-  display: none;
-}
-
-@media (min-width: 640px) {
-  .student-layout-search-wrap {
-    display: block;
-  }
-}
-
-.student-layout-search-icon {
-  position: absolute;
-  left: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.125rem !important;
-  color: #94a3b8;
-}
-
-.student-layout-search {
-  width: 100%;
-  padding: 0.5rem 1rem 0.5rem 2.5rem;
-  font-size: 0.875rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  background: #f6f6f8;
-  outline: none;
-}
-
-.student-layout-search::placeholder {
-  color: #94a3b8;
-}
-
-.student-layout-icon-btn {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background: #f6f6f8;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #64748b;
-  cursor: pointer;
-  transition: background 0.2s;
-  position: relative;
-}
-
-.student-layout-icon-btn:hover {
-  background: #f6f6f8;
-}
-
-.student-layout-icon-btn--badge::after {
-  content: '';
-  position: absolute;
-  top: 0.375rem;
-  right: 0.375rem;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: #ef4444;
-}
-
-.student-layout-icon-btn .material-icons {
-  font-size: 1.25rem;
-}
-
-.student-layout-profile-switcher-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.75rem;
-  background: #f6f6f8;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  position: relative;
-}
-
-.student-layout-profile-switcher-icon {
-  font-size: 1.125rem !important;
-  color: var(--color-primary);
-}
-
-.student-layout-profile-switcher {
-  appearance: none;
-  padding: 0.15rem 1.5rem 0.15rem 0;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  font-family: inherit;
-  color: #334155;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  min-width: 6rem;
-}
-
-.student-layout-profile-switcher-arrow {
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1rem !important;
-  color: #94a3b8;
-  pointer-events: none;
-}
-
-.student-layout-user {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding-left: 0.75rem;
-  border-left: 1px solid #f1f5f9;
-}
-
-.student-layout-user-info {
-  text-align: right;
-  display: none;
-}
-
-@media (min-width: 640px) {
-  .student-layout-user-info {
-    display: block;
-  }
-}
-
-.student-layout-user-name {
-  margin: 0;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.student-layout-user-role {
-  margin: 0.125rem 0 0;
-  font-size: 0.625rem;
-  color: #94a3b8;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.student-layout-avatar {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background: #dbeafe;
-  border: 2px solid #fff;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.75rem;
-  color: var(--color-primary);
-  flex-shrink: 0;
 }
 
 /* Área de scroll ocupa toda a largura → scrollbar no canto direito da tela */
@@ -262,16 +34,17 @@
   box-sizing: border-box;
 }
 
-/* Conteúdo centralizado, mesmo tamanho de antes */
+/* Conteúdo centralizado (mesma largura que preceptor) */
 .student-layout-main-inner {
-  max-width: min(96rem, 100%);
+  max-width: min(var(--layout-max-width, 92rem), 100%);
   margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
+  width: 100%;
+  padding: 2rem var(--layout-padding-x, 1.5rem) 4rem;
   padding-top: calc(4rem + 2rem);
   box-sizing: border-box;
 }
 
-/* Certificação / Relatório: sem header global, conteúdo colado no topo sem folga */
+/* Certificação / Home aluno: header mínimo com select de persona; sem padding lateral duplo */
 .student-layout--cert-page,
 .student-layout--cert-page .student-layout-main,
 .student-layout--cert-page .student-layout-main-inner {
@@ -279,8 +52,10 @@
 }
 
 .student-layout--cert-page .student-layout-main-inner {
-  padding-top: 0;
+  padding-top: 4rem; /* altura do header mínimo */
   padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* Página do formulário diário: fundo cinza como no layout de referência */
