@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { LOGO_AXONO } from '../constants/brand'
 import './StudentRotationReport.css'
 
 const MOCK_ALL_ACTIVITIES = [
@@ -61,7 +62,7 @@ export default function StudentFinalCertification() {
         <article className="student-report-document student-report-document--final">
           <div className="student-report-doc-header">
             <div className="student-report-doc-logo">
-              <img src="/logo-axono-blue.png" alt="" className="student-report-doc-logo-img" />
+              <img src={LOGO_AXONO} alt="" className="student-report-doc-logo-img" />
             </div>
             <div className="student-report-doc-title-block">
               <h1 className="student-report-doc-title">{t('studentReport.institutionName', 'FACULDADE DE MEDICINA FEDERAL')}</h1>

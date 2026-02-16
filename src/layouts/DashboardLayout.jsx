@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useProfile, PROFILES } from '../contexts/ProfileContext'
+import { LOGO_AXONO } from '../constants/brand'
 import PreceptorLayout from './PreceptorLayout'
 import StudentLayout from './StudentLayout'
 import '../pages/Dashboard.css'
@@ -105,7 +106,7 @@ export default function DashboardLayout() {
     <div className="dashboard-layout">
       <aside className="dashboard-sidebar">
         <div className="dashboard-sidebar-brand">
-          <img src="/logo-axono-blue.png" alt="" className="dashboard-sidebar-logo" />
+          <img src={LOGO_AXONO} alt="" className="dashboard-sidebar-logo" />
         </div>
         <nav className="dashboard-nav">
           {navItems.map((item) => (

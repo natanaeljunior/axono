@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../components/LanguageSwitcher'
+import { LOGO_AXONO } from '../constants/brand'
 import './Login.css'
 import './FirstAccess.css'
 
@@ -67,7 +68,7 @@ export default function FirstAccess() {
         <div className="first-access-card">
           <div className="first-access-card-header">
             <div className="first-access-brand">
-              <img src="/logo-axono-blue.png" alt="" className="first-access-logo" width="40" height="40" />
+              <img src={LOGO_AXONO} alt="" className="first-access-logo" width="40" height="40" />
               <div>
                 <span className="first-access-brand-title">{t('firstAccess.brandTitle')}</span>
                 <span className="first-access-brand-subtitle">{t('firstAccess.brandSubtitle')}</span>

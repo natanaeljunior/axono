@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useProfile, PROFILES } from '../contexts/ProfileContext'
+import { LOGO_AXONO } from '../constants/brand'
 import './PreceptorLayout.css'
 
 export default function PreceptorLayout() {
@@ -19,7 +20,7 @@ export default function PreceptorLayout() {
       <header className="preceptor-layout-header">
         <div className="preceptor-layout-header-inner">
           <div className="preceptor-layout-brand">
-            <img src="/logo-axono-blue.png" alt="" className="preceptor-layout-brand-logo" />
+            <img src={LOGO_AXONO} alt="" className="preceptor-layout-brand-logo" />
           </div>
           <nav className="preceptor-layout-nav">
             <NavLink

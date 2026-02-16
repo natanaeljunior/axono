@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
+import { LOGO_AXONO } from '../constants/brand'
 import './StudentReportsCertification.css'
 
 const ROTATIONS = [
@@ -28,7 +29,7 @@ export default function StudentReportsCertification() {
         <nav className="student-cert-nav">
           <div className="student-cert-nav-inner">
             <div className="student-cert-nav-brand">
-              <img src="/logo-axono-blue.png" alt="" className="student-cert-nav-logo" />
+              <img src={LOGO_AXONO} alt="" className="student-cert-nav-logo" />
               <div>
                 <h1 className="student-cert-nav-title">{t('studentCert.portalTitle', 'Portal do Interno')}</h1>
                 <p className="student-cert-nav-subtitle">{t('studentCert.unifiedReport', 'RELATÓRIO UNIFICADO (VISÃO ÚNICA)')}</p>
@@ -216,9 +217,6 @@ export default function StudentReportsCertification() {
 
       <footer className="student-cert-footer">
         <div className="student-cert-footer-inner">
-          <div className="student-cert-footer-brand">
-            <img src="/logo-axono-blue.png" alt="" className="student-cert-footer-logo" />
-          </div>
           <p className="student-cert-footer-copy">© 2024 • Sistema de Gestão Acadêmica Integrada • Todos os direitos reservados</p>
           <div className="student-cert-footer-links">
             <a href="#">{t('studentCert.terms', 'Termos')}</a>

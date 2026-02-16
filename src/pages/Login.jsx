@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../components/LanguageSwitcher'
+import { LOGO_AXONO } from '../constants/brand'
 import './Login.css'
 
 export default function Login() {
@@ -36,7 +37,7 @@ export default function Login() {
           </div>
           <div className="login-brand">
             <div className="login-brand-lockup">
-              <img src="/logo-axono-blue.png" alt="" className="login-brand-logo" width="48" height="48" />
+              <img src={LOGO_AXONO} alt="" className="login-brand-logo" width="48" height="48" />
               <span className="login-brand-wordmark">{t('common.brandName')}</span>
             </div>
             <h1>{t('login.title')}</h1>

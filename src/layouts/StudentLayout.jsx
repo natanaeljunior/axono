@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useProfile, PROFILES } from '../contexts/ProfileContext'
+import { LOGO_AXONO } from '../constants/brand'
 import '../pages/Dashboard.css'
 import './StudentLayout.css'
 
@@ -23,7 +24,7 @@ export default function StudentLayout() {
       <header className="student-layout-header">
         <div className="student-layout-header-inner">
           <div className="student-layout-brand">
-            <img src="/logo-axono-blue.png" alt="" className="student-layout-brand-logo" />
+            <img src={LOGO_AXONO} alt="" className="student-layout-brand-logo" />
           </div>
           <nav className="student-layout-nav">
             <NavLink
