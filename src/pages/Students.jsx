@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { studentService } from '../services'
+import { studentService, groupService } from '../services'
 
 const PAGE_SIZE = 10
 
@@ -19,9 +19,16 @@ export default function Students() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editingStudent, setEditingStudent] = useState(null)
   const [saving, setSaving] = useState(false)
-  const [formData, setFormData] = useState({ name: '', email: '', matricula: '', password: '' })
+  const [formData, setFormData] = useState({ name: '', email: '', matricula: '', password: '', groupId: '' })
+  const [groups, setGroups] = useState([])
   const [deleteConfirmStudent, setDeleteConfirmStudent] = useState(null)
   const [deleting, setDeleting] = useState(false)
+
+  useEffect(() => {
+    groupService.findAll(null, 0, 500).then((data) => {
+      setGroups(data.content || [])
+    }).catch(() => {})
+  }, [])
 
   const fetchStudents = useCallback(async () => {
     setLoading(true)
@@ -44,7 +51,7 @@ export default function Students() {
 
   const openCreate = () => {
     setEditingStudent(null)
-    setFormData({ name: '', email: '', matricula: '', password: '' })
+    setFormData({ name: '', email: '', matricula: '', password: '', groupId: '' })
     setModalOpen(true)
   }
 
@@ -55,6 +62,7 @@ export default function Students() {
       email: student.email,
       matricula: student.matricula,
       password: '',
+      groupId: student.groupId || '',
     })
     setModalOpen(true)
   }
@@ -62,7 +70,7 @@ export default function Students() {
   const closeModal = () => {
     setModalOpen(false)
     setEditingStudent(null)
-    setFormData({ name: '', email: '', matricula: '', password: '' })
+    setFormData({ name: '', email: '', matricula: '', password: '', groupId: '' })
   }
 
   const handleSubmit = async (e) => {
@@ -70,21 +78,16 @@ export default function Students() {
     setSaving(true)
     setError('')
     try {
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        matricula: formData.matricula,
+        groupId: formData.groupId || null,
+      }
+      if (formData.password) payload.password = formData.password
       if (editingStudent) {
-        const payload = {
-          name: formData.name,
-          email: formData.email,
-          matricula: formData.matricula,
-        }
-        if (formData.password) payload.password = formData.password
         await studentService.update(editingStudent.id, payload)
       } else {
-        const payload = {
-          name: formData.name,
-          email: formData.email,
-          matricula: formData.matricula,
-        }
-        if (formData.password) payload.password = formData.password
         await studentService.create(payload)
       }
       closeModal()
@@ -162,6 +165,7 @@ export default function Students() {
                   <th>{t('students.columnStudent')}</th>
                   <th>{t('students.columnRA')}</th>
                   <th>E-mail</th>
+                  <th>{t('students.columnGroup')}</th>
                   <th>{t('students.columnStatus')}</th>
                   <th>{t('students.columnActions')}</th>
                 </tr>
@@ -183,6 +187,7 @@ export default function Students() {
                     </td>
                     <td className="students-cell-ra">{row.matricula}</td>
                     <td className="students-cell-email">{row.email}</td>
+                    <td className="students-cell-group">{row.groupName || '—'}</td>
                     <td>
                       <span
                         className={`students-status students-status--${
@@ -304,6 +309,19 @@ export default function Students() {
                   required
                   placeholder={t('students.modalMatriculaPlaceholder')}
                 />
+              </div>
+              <div className="students-modal-field">
+                <label htmlFor="student-group">{t('students.modalGroup')}</label>
+                <select
+                  id="student-group"
+                  value={formData.groupId}
+                  onChange={(e) => setFormData((d) => ({ ...d, groupId: e.target.value }))}
+                >
+                  <option value="">— {t('students.filterAll')}</option>
+                  {groups.map((g) => (
+                    <option key={g.id} value={g.id}>{g.code} {g.cycle ? `(${g.cycle})` : ''}</option>
+                  ))}
+                </select>
               </div>
               <div className="students-modal-field">
                 <label htmlFor="student-password">

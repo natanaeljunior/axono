@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { groupService, preceptorService } from '../services'
+import { groupService } from '../services'
 
 const VIEW_GRID = 'grid'
 const VIEW_LIST = 'list'
@@ -32,17 +32,11 @@ export default function Groups() {
   const [page, setPage] = useState(0)
   const [totalElements, setTotalElements] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
-  const [preceptors, setPreceptors] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const [editingGroup, setEditingGroup] = useState(null)
   const [saving, setSaving] = useState(false)
   const [formData, setFormData] = useState({
     code: '',
-    preceptorId: '',
-    hospitalName: '',
-    rotationType: '',
-    rotationCurrent: 1,
-    rotationTotal: 6,
     cycle: '2024.2',
   })
   const [deleteConfirmGroup, setDeleteConfirmGroup] = useState(null)
@@ -67,21 +61,10 @@ export default function Groups() {
     fetchGroups()
   }, [fetchGroups])
 
-  useEffect(() => {
-    preceptorService.findAll(0, 500).then((data) => {
-      setPreceptors(data.content || [])
-    }).catch(() => {})
-  }, [])
-
   const openCreate = () => {
     setEditingGroup(null)
     setFormData({
       code: '',
-      preceptorId: '',
-      hospitalName: '',
-      rotationType: '',
-      rotationCurrent: 1,
-      rotationTotal: 6,
       cycle: cycle || '2024.2',
     })
     setModalOpen(true)
@@ -90,13 +73,8 @@ export default function Groups() {
   const openEdit = (group) => {
     setEditingGroup(group)
     setFormData({
-      code: group.code,
-      preceptorId: group.preceptorId || '',
-      hospitalName: group.hospitalName || '',
-      rotationType: group.rotationType || '',
-      rotationCurrent: group.rotationCurrent ?? 1,
-      rotationTotal: group.rotationTotal ?? 6,
-      cycle: group.cycle || '',
+      code: group.code || '',
+      cycle: group.cycle || cycle || '2024.2',
     })
     setModalOpen(true)
   }
@@ -113,17 +91,7 @@ export default function Groups() {
     try {
       const payload = {
         code: formData.code.trim(),
-        preceptorId: formData.preceptorId || null,
-        hospitalName: formData.hospitalName?.trim() || null,
-        rotationType: formData.rotationType || null,
-        rotationCurrent: formData.rotationCurrent ? Number(formData.rotationCurrent) : null,
-        rotationTotal: formData.rotationTotal ? Number(formData.rotationTotal) : 6,
         cycle: formData.cycle?.trim() || null,
-      }
-      if (!payload.preceptorId) {
-        setError('Selecione um preceptor.')
-        setSaving(false)
-        return
       }
       if (editingGroup) {
         await groupService.update(editingGroup.id, payload)
@@ -421,88 +389,70 @@ export default function Groups() {
       </section>
 
       {modalOpen && (
-        <div className="students-modal-overlay" onClick={closeModal} role="dialog" aria-modal="true" aria-labelledby="groups-modal-title">
-          <div className="students-modal" onClick={(e) => e.stopPropagation()}>
-            <h3 id="groups-modal-title" className="students-modal-title">
-              {editingGroup ? t('groups.modalTitleEdit') : t('groups.modalTitleCreate')}
-            </h3>
-            <form onSubmit={handleSubmit}>
-              <div className="students-modal-field">
-                <label htmlFor="group-code">{t('groups.modalCode')}</label>
-                <input
-                  id="group-code"
-                  type="text"
-                  value={formData.code}
-                  onChange={(e) => setFormData((d) => ({ ...d, code: e.target.value }))}
-                  required
-                  placeholder={t('groups.modalCodePlaceholder')}
-                />
+        <div className="groups-modal-overlay" onClick={closeModal} role="dialog" aria-modal="true" aria-labelledby="groups-modal-title">
+          <div className="groups-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="groups-modal-header">
+              <span className="groups-modal-icon" aria-hidden>
+                <span className="material-icons">group_work</span>
+              </span>
+              <h3 id="groups-modal-title" className="groups-modal-title">
+                {editingGroup ? t('groups.modalTitleEdit') : t('groups.modalTitleCreate')}
+              </h3>
+              <p className="groups-modal-subtitle">
+                {editingGroup
+                  ? t('groups.modalSubtitleEdit', { code: displayCode(editingGroup.code) })
+                  : t('groups.modalSubtitleCreate')}
+              </p>
+            </div>
+            <form onSubmit={handleSubmit} className="groups-modal-form">
+              <div className="groups-modal-fields">
+                <div className="groups-modal-field groups-modal-field--code">
+                  <label htmlFor="group-code" className="groups-modal-label">
+                    {t('groups.modalCode')}
+                  </label>
+                  <input
+                    id="group-code"
+                    type="text"
+                    className="groups-modal-input"
+                    value={formData.code}
+                    onChange={(e) => setFormData((d) => ({ ...d, code: e.target.value }))}
+                    required
+                    maxLength={20}
+                    placeholder={t('groups.modalCodePlaceholder')}
+                    autoComplete="off"
+                  />
+                  <span className="groups-modal-hint">{t('groups.modalCodeHint')}</span>
+                </div>
+                <div className="groups-modal-field groups-modal-field--cycle">
+                  <label htmlFor="group-cycle" className="groups-modal-label">
+                    {t('groups.modalCycle')}
+                  </label>
+                  <input
+                    id="group-cycle"
+                    type="text"
+                    className="groups-modal-input"
+                    value={formData.cycle}
+                    onChange={(e) => setFormData((d) => ({ ...d, cycle: e.target.value }))}
+                    maxLength={20}
+                    placeholder={t('groups.modalCyclePlaceholder')}
+                    autoComplete="off"
+                  />
+                  <span className="groups-modal-hint">{t('groups.modalCycleHint')}</span>
+                </div>
               </div>
-              <div className="students-modal-field">
-                <label htmlFor="group-preceptor">{t('groups.modalPreceptor')}</label>
-                <select
-                  id="group-preceptor"
-                  value={formData.preceptorId}
-                  onChange={(e) => setFormData((d) => ({ ...d, preceptorId: e.target.value }))}
-                  required
-                >
-                  <option value="">—</option>
-                  {preceptors.map((p) => (
-                    <option key={p.id} value={p.id}>{p.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="students-modal-field">
-                <label htmlFor="group-hospital">{t('groups.modalHospital')}</label>
-                <input
-                  id="group-hospital"
-                  type="text"
-                  value={formData.hospitalName}
-                  onChange={(e) => setFormData((d) => ({ ...d, hospitalName: e.target.value }))}
-                  placeholder={t('groups.modalHospitalPlaceholder')}
-                />
-              </div>
-              <div className="students-modal-field">
-                <label htmlFor="group-rotation-type">{t('groups.modalRotationType')}</label>
-                <select
-                  id="group-rotation-type"
-                  value={formData.rotationType}
-                  onChange={(e) => setFormData((d) => ({ ...d, rotationType: e.target.value }))}
-                >
-                  <option value="">—</option>
-                  {ROTATION_TYPES.map((rt) => (
-                    <option key={rt} value={rt}>{t(rotationTypeLabelKey(rt))}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="students-modal-field">
-                <label htmlFor="group-rotation-current">{t('groups.modalRotationCurrent')}</label>
-                <select
-                  id="group-rotation-current"
-                  value={formData.rotationCurrent}
-                  onChange={(e) => setFormData((d) => ({ ...d, rotationCurrent: e.target.value }))}
-                >
-                  {[1, 2, 3, 4, 5, 6].map((n) => (
-                    <option key={n} value={n}>{n}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="students-modal-field">
-                <label htmlFor="group-cycle">{t('groups.modalCycle')}</label>
-                <input
-                  id="group-cycle"
-                  type="text"
-                  value={formData.cycle}
-                  onChange={(e) => setFormData((d) => ({ ...d, cycle: e.target.value }))}
-                  placeholder={t('groups.modalCyclePlaceholder')}
-                />
-              </div>
-              <div className="students-modal-actions">
+              <div className="groups-modal-actions">
                 <button type="button" className="dashboard-btn dashboard-btn--secondary" onClick={closeModal}>
                   {t('groups.modalCancel')}
                 </button>
                 <button type="submit" className="dashboard-btn dashboard-btn--primary" disabled={saving}>
-                  {saving ? t('groups.modalSaving') : t('groups.modalSave')}
+                  {saving ? (
+                    <>
+                      <span className="groups-modal-spinner" aria-hidden />
+                      {t('groups.modalSaving')}
+                    </>
+                  ) : (
+                    t('groups.modalSave')
+                  )}
                 </button>
               </div>
             </form>
