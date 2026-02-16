@@ -28,98 +28,109 @@ export default function StudentDailyForm() {
     <div className="student-form-layout">
       <aside className="student-form-sidebar">
         <div className="student-form-rotation-card">
-          <h4 className="student-form-rotation-title">{t('studentForm.rotationName')}</h4>
-          <p className="student-form-rotation-place">{t('studentForm.rotationPlace')}</p>
-        </div>
-        <div className="student-form-progress-card">
-          <h4 className="student-form-progress-title">{t('studentForm.progressTitle')}</h4>
-          <div className="student-form-progress-bar">
-            <div className="student-form-progress-fill" style={{ width: '40%' }} />
-          </div>
-          <p className="student-form-progress-text">128h / 320h</p>
-          <div className="student-form-progress-meta">
-            <div className="student-form-progress-meta-item">
-              <span className="student-form-progress-meta-label">{t('studentForm.week')}</span>
-              <span className="student-form-progress-meta-value">4 de 8</span>
+          <div className="student-form-rotation-banner">
+            <div className="student-form-rotation-banner-gradient" />
+            <div className="student-form-rotation-banner-content">
+              <h2 className="student-form-rotation-title">{t('studentForm.rotationName')}</h2>
+              <p className="student-form-rotation-place">
+                <span className="material-icons">location_on</span>
+                {t('studentForm.rotationPlace')}
+              </p>
             </div>
-            <div className="student-form-progress-meta-item">
-              <span className="student-form-progress-meta-label">{t('studentForm.remaining')}</span>
-              <span className="student-form-progress-meta-value">192h</span>
+          </div>
+          <div className="student-form-rotation-body">
+            <div className="student-form-progress-row">
+              <span className="student-form-progress-label">{t('studentForm.progressTitle')}</span>
+              <span className="student-form-progress-value">128h / 320h</span>
+            </div>
+            <div className="student-form-progress-bar">
+              <div className="student-form-progress-fill" style={{ width: '40%' }} />
+            </div>
+            <div className="student-form-progress-meta">
+              <div className="student-form-progress-meta-item">
+                <span className="student-form-progress-meta-label">{t('studentForm.week')}</span>
+                <span className="student-form-progress-meta-value">4 de 8</span>
+              </div>
+              <div className="student-form-progress-meta-item">
+                <span className="student-form-progress-meta-label">{t('studentForm.remaining')}</span>
+                <span className="student-form-progress-meta-value">192h</span>
+              </div>
             </div>
           </div>
         </div>
         <div className="student-form-last-card">
-          <h4 className="student-form-last-title">
+          <h3 className="student-form-last-title">
             <span className="material-icons">event</span>
             {t('studentForm.lastRecords')}
-          </h4>
+          </h3>
           <ul className="student-form-last-list">
             {LAST_RECORDS.map((r, i) => (
-              <li key={i} className="student-form-last-item">
-                <div className="student-form-last-date">{r.date}</div>
-                <div className="student-form-last-desc">{r.description}</div>
+              <li key={i} className={`student-form-last-item student-form-last-item--${r.status}`}>
+                <div className="student-form-last-left">
+                  <div className={`student-form-last-icon student-form-last-icon--${r.status}`}>
+                    <span className="material-icons">{r.status === 'validated' ? 'check' : 'pending_actions'}</span>
+                  </div>
+                  <div>
+                    <p className="student-form-last-date">{r.date}</p>
+                    <p className="student-form-last-desc">{r.description}</p>
+                  </div>
+                </div>
                 <span className={`student-form-last-status student-form-last-status--${r.status}`}>
                   {r.status === 'validated' ? t('studentForm.validated') : t('studentForm.pending')}
                 </span>
               </li>
             ))}
           </ul>
-          <a href="#" className="student-form-last-link">{t('studentForm.viewFullHistory')}</a>
+          <button type="button" className="student-form-last-link">{t('studentForm.viewFullHistory')}</button>
         </div>
       </aside>
 
       <main className="student-form-main">
-        <header className="student-form-header">
-          <div>
-            <h1 className="student-form-page-title">{t('studentForm.pageTitle')}</h1>
-            <p className="student-form-page-subtitle">{t('studentForm.pageSubtitle')}</p>
-          </div>
-          <span className="student-form-session-badge">
-            <span className="student-form-session-dot" />
-            {t('studentForm.activeSession')}
-          </span>
-        </header>
+        <div className="student-form-card">
+          <header className="student-form-header">
+            <div>
+              <h1 className="student-form-page-title">{t('studentForm.pageTitle')}</h1>
+              <p className="student-form-page-subtitle">{t('studentForm.pageSubtitle')}</p>
+            </div>
+            <span className="student-form-session-badge">
+              <span className="student-form-session-dot" />
+              {t('studentForm.activeSession')}
+            </span>
+          </header>
 
-        <form className="student-form-form">
+          <form className="student-form-form">
           <section className="student-form-section">
             <h3 className="student-form-section-title">{t('studentForm.generalInfo')}</h3>
-            <div className="student-form-row">
-              <label className="student-form-label">{t('studentForm.serviceDate')}</label>
-              <div className="student-form-input-wrap">
+            <div className="student-form-grid-2">
+              <div className="student-form-row">
+                <label className="student-form-label">{t('studentForm.serviceDate')}</label>
                 <input type="date" className="student-form-input" value={date} onChange={(e) => setDate(e.target.value)} />
-                <span className="material-icons student-form-input-icon">calendar_today</span>
               </div>
-            </div>
-            <div className="student-form-row">
-              <label className="student-form-label">{t('studentForm.preceptorOfDay')}</label>
-              <div className="student-form-input-wrap student-form-input-wrap--search">
-                <span className="material-icons student-form-search-icon">search</span>
-                <input type="text" className="student-form-input" placeholder={t('studentForm.searchPreceptor')} />
+              <div className="student-form-row">
+                <label className="student-form-label">{t('studentForm.preceptorOfDay')}</label>
+                <div className="student-form-input-wrap student-form-input-wrap--search">
+                  <span className="material-icons student-form-search-icon">search</span>
+                  <input type="text" className="student-form-input" placeholder={t('studentForm.searchPreceptor')} />
+                </div>
               </div>
             </div>
           </section>
 
           <section className="student-form-section">
             <h3 className="student-form-section-title">{t('studentForm.shiftHours')}</h3>
-            <div className="student-form-grid-2">
+            <div className="student-form-grid-3">
               <div className="student-form-row">
                 <label className="student-form-label">{t('studentForm.entry')}</label>
-                <div className="student-form-input-wrap">
-                  <input type="time" className="student-form-input" value={entry} onChange={(e) => setEntry(e.target.value)} />
-                  <span className="material-icons student-form-input-icon">schedule</span>
-                </div>
+                <input type="time" className="student-form-input" value={entry} onChange={(e) => setEntry(e.target.value)} />
               </div>
               <div className="student-form-row">
                 <label className="student-form-label">{t('studentForm.exit')}</label>
-                <div className="student-form-input-wrap">
-                  <input type="time" className="student-form-input" value={exit} onChange={(e) => setExit(e.target.value)} />
-                  <span className="material-icons student-form-input-icon">schedule</span>
-                </div>
+                <input type="time" className="student-form-input" value={exit} onChange={(e) => setExit(e.target.value)} />
               </div>
-            </div>
-            <div className="student-form-row">
-              <label className="student-form-label">{t('studentForm.workloadAuto')}</label>
-              <div className="student-form-workload">12 {t('studentForm.hours')}</div>
+              <div className="student-form-row">
+                <label className="student-form-label">{t('studentForm.workloadAuto')}</label>
+                <div className="student-form-workload">12 {t('studentForm.hours')}</div>
+              </div>
             </div>
           </section>
 
@@ -138,9 +149,9 @@ export default function StudentDailyForm() {
             <h3 className="student-form-section-title">{t('studentForm.competencies')}</h3>
             <div className="student-form-competencies">
               {COMPETENCIES.map((c) => (
-                <label key={c.key} className="student-form-checkbox">
-                  <input type="checkbox" checked={!!competencies[c.key]} onChange={() => toggleCompetency(c.key)} />
-                  <span>{t(`studentForm.${c.labelKey}`)}</span>
+                <label key={c.key} className="student-form-checkbox-card">
+                  <input type="checkbox" className="student-form-checkbox-input" checked={!!competencies[c.key]} onChange={() => toggleCompetency(c.key)} />
+                  <span className="student-form-checkbox-label">{t(`studentForm.${c.labelKey}`)}</span>
                 </label>
               ))}
             </div>
@@ -154,15 +165,20 @@ export default function StudentDailyForm() {
             </button>
           </div>
 
-          <div className="student-form-reminder">
+          </form>
+
+          <div className="student-form-reminder student-form-reminder--outside">
             <span className="material-icons student-form-reminder-icon">info</span>
             <div>
-              <h4 className="student-form-reminder-title">{t('studentForm.reminderTitle')}</h4>
+              <p className="student-form-reminder-title">{t('studentForm.reminderTitle')}</p>
               <p className="student-form-reminder-text">{t('studentForm.reminderText')}</p>
             </div>
           </div>
-        </form>
+        </div>
       </main>
+      <button type="button" className="student-form-help-btn" aria-label="Ajuda">
+        <span className="material-icons">help_outline</span>
+      </button>
     </div>
   )
 }

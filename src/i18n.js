@@ -8,7 +8,7 @@ const resources = {
   es: { translation: es },
 }
 
-const savedLanguage = localStorage.getItem('residencyflow-lang') || 'pt-BR'
+const savedLanguage = localStorage.getItem('axono-lang') || 'pt-BR'
 
 i18n
   .use(initReactI18next)

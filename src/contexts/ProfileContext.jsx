@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback } from 'react'
 
-const STORAGE_KEY = 'residencyFlow_profile'
+const STORAGE_KEY = 'axono_profile'
 
 export const PROFILES = {
   COORDENACAO: 'coordenacao',

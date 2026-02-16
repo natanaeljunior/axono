@@ -1,4 +1,4 @@
-# ResidencyFlow
+# Axono
 
 Base de um app React com Vite.
 

@@ -2,6 +2,7 @@ import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useProfile, PROFILES } from '../contexts/ProfileContext'
 import PreceptorLayout from './PreceptorLayout'
+import StudentLayout from './StudentLayout'
 import '../pages/Dashboard.css'
 
 const NAV_COORDENACAO = [
@@ -84,6 +85,14 @@ export default function DashboardLayout() {
     navigate('/dashboard')
   }
 
+  if (profile === PROFILES.ALUNO) {
+    return (
+      <StudentLayout>
+        <Outlet />
+      </StudentLayout>
+    )
+  }
+
   if (profile === PROFILES.PRECEPTOR) {
     return (
       <PreceptorLayout>
@@ -96,8 +105,7 @@ export default function DashboardLayout() {
     <div className="dashboard-layout">
       <aside className="dashboard-sidebar">
         <div className="dashboard-sidebar-brand">
-          <img src="/logo.svg" alt="" className="dashboard-sidebar-logo" width="32" height="32" />
-          <span className="dashboard-sidebar-brand-name">{t('common.brandName')}</span>
+          <img src="/logo-axono-blue.png" alt="" className="dashboard-sidebar-logo" />
         </div>
         <nav className="dashboard-nav">
           {navItems.map((item) => (

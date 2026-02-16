@@ -36,7 +36,7 @@ export default function Login() {
           </div>
           <div className="login-brand">
             <div className="login-brand-lockup">
-              <img src="/logo.svg" alt="" className="login-brand-logo" width="48" height="48" />
+              <img src="/logo-axono-blue.png" alt="" className="login-brand-logo" width="48" height="48" />
               <span className="login-brand-wordmark">{t('common.brandName')}</span>
             </div>
             <h1>{t('login.title')}</h1>

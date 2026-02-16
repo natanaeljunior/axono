@@ -1,0 +1,303 @@
+/* StudentHome - Dashboard aluno (layout sem sidebar) */
+.student-home-new {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.student-home-new-header {
+  margin-bottom: 2rem;
+}
+
+.student-home-new-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.student-home-new-subtitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: #64748b;
+}
+
+/* Cards - 3 colunas */
+.student-home-new-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .student-home-new-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.student-home-new-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+.student-home-new-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.student-home-new-card-icon {
+  font-size: 1.25rem !important;
+}
+
+.student-home-new-card-icon--blue {
+  color: var(--color-primary);
+}
+
+.student-home-new-card-icon--green {
+  color: #10b981;
+}
+
+.student-home-new-card-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.student-home-new-card-value {
+  margin: 0 0 0.25rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.student-home-new-card-value--big {
+  font-size: 1.5rem;
+}
+
+.student-home-new-card-meta {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #64748b;
+}
+
+.student-home-new-presence-bar {
+  height: 0.5rem;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.student-home-new-presence-fill {
+  height: 100%;
+  background: #10b981;
+  border-radius: 9999px;
+}
+
+/* Botões de ação */
+.student-home-new-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.student-home-new-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.student-home-new-btn .material-icons {
+  font-size: 1.25rem !important;
+}
+
+.student-home-new-btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+}
+
+.student-home-new-btn--primary:hover {
+  filter: brightness(1.05);
+}
+
+.student-home-new-btn--secondary {
+  background: #fff;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.student-home-new-btn--secondary:hover {
+  background: #f8fafc;
+}
+
+/* Layout: Atividade + Orientações lado a lado */
+.student-home-new-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .student-home-new-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Atividade Recente */
+.student-home-new-activity {
+  margin-bottom: 0;
+}
+
+.student-home-new-activity-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.student-home-new-activity-title .material-icons {
+  font-size: 1.25rem !important;
+  color: #64748b;
+}
+
+.student-home-new-activity-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.student-home-new-activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.student-home-new-activity-item:last-child {
+  margin-bottom: 0;
+}
+
+.student-home-new-activity-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.student-home-new-activity-icon .material-icons {
+  font-size: 1.25rem !important;
+}
+
+.student-home-new-activity-icon--green {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.student-home-new-activity-icon--yellow {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.student-home-new-activity-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.student-home-new-activity-title-text {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.student-home-new-activity-detail {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  color: #64748b;
+}
+
+.student-home-new-activity-time {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+/* Orientações de Internato */
+.student-home-new-orientations {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.student-home-new-orientations-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #dbeafe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.student-home-new-orientations-icon .material-icons {
+  font-size: 1.125rem !important;
+  color: var(--color-primary);
+}
+
+.student-home-new-orientations-title {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.student-home-new-orientations-text {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.student-home-new-orientations-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.student-home-new-orientations-link:hover {
+  text-decoration: underline;
+}
+
+.student-home-new-orientations-link .material-icons {
+  font-size: 1rem !important;
+}

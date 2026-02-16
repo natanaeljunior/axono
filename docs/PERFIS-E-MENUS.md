@@ -1,4 +1,4 @@
-# ResidencyFlow — Perfis e Menus do Sistema
+# Axono — Perfis e Menus do Sistema
 
 Documentação dos perfis de usuário e dos menus por perfil do Portal do Internato (6º ano – gestão acadêmica).
 
@@ -111,4 +111,4 @@ Cada grupo permanece **2 meses** em uma rotação em **um hospital**, com um **p
 
 ---
 
-*Documento gerado para o projeto ResidencyFlow — Portal do Internato.*
+*Documento gerado para o projeto Axono — Portal do Internato.*

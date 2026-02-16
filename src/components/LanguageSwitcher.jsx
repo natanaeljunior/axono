@@ -11,7 +11,7 @@ export default function LanguageSwitcher() {
 
   function handleChange(lng) {
     i18n.changeLanguage(lng)
-    localStorage.setItem('residencyflow-lang', lng)
+    localStorage.setItem('axono-lang', lng)
   }
 
   return (

@@ -1,6 +1,6 @@
-# ResidencyFlow — Base do Projeto e Personas
+# Axono — Base do Projeto e Personas
 
-Documento de referência do projeto **ResidencyFlow** (Portal do Internato), reunindo visão geral do sistema, stack técnico, estrutura de telas e **personas** (perfis) com seus menus, baseado na documentação de negócio e no código atual.
+Documento de referência do projeto **Axono** (Portal do Internato), reunindo visão geral do sistema, stack técnico, estrutura de telas e **personas** (perfis) com seus menus, baseado na documentação de negócio e no código atual.
 
 ---
 
@@ -8,7 +8,7 @@ Documento de referência do projeto **ResidencyFlow** (Portal do Internato), reu
 
 | Item | Descrição |
 |------|-----------|
-| **Nome** | ResidencyFlow |
+| **Nome** | Axono |
 | **Objetivo** | Portal de gestão acadêmica do internato médico (6º ano): presenças, rotações, grupos, preceptores, hospitais e relatórios. |
 | **Público** | Alunos do 6º ano, preceptores, coordenação do 6º ano e direção acadêmica. |
 | **Idiomas** | pt-BR (padrão), es (espanhol) via i18next. |
@@ -252,4 +252,4 @@ Consulte “Início” `docs/ACOMPANHAMENTO-TELAS.md` para o checklist completo 
 
 ---
 
-*Documento gerado a partir do código do ResidencyFlow e da documentação em `docs/PERFIS-E-MENUS.md`.*
+*Documento gerado a partir do código do Axono e da documentação em `docs/PERFIS-E-MENUS.md`.*

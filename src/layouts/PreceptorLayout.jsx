@@ -1,17 +1,25 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useProfile, PROFILES } from '../contexts/ProfileContext'
 import './PreceptorLayout.css'
 
 export default function PreceptorLayout() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { profile, setProfile } = useProfile()
+
+  const handleProfileChange = (e) => {
+    const value = e.target.value
+    setProfile(value)
+    navigate('/dashboard')
+  }
 
   return (
     <div className="preceptor-layout">
       <header className="preceptor-layout-header">
         <div className="preceptor-layout-header-inner">
           <div className="preceptor-layout-brand">
-            <span className="material-icons preceptor-layout-brand-icon">medical_services</span>
-            <span className="preceptor-layout-brand-name">{t('common.brandName')}</span>
+            <img src="/logo-axono-blue.png" alt="" className="preceptor-layout-brand-logo" />
           </div>
           <nav className="preceptor-layout-nav">
             <NavLink
@@ -41,6 +49,20 @@ export default function PreceptorLayout() {
             </NavLink>
           </nav>
           <div className="preceptor-layout-header-right">
+            <div className="preceptor-layout-profile-switcher-wrap">
+              <span className="material-icons preceptor-layout-profile-switcher-icon">person</span>
+              <select
+                className="preceptor-layout-profile-switcher"
+                value={profile}
+                onChange={handleProfileChange}
+                aria-label={t('profileSwitcher.label')}
+              >
+                <option value={PROFILES.COORDENACAO}>{t('profileSwitcher.coordenacao')}</option>
+                <option value={PROFILES.ALUNO}>{t('profileSwitcher.aluno')}</option>
+                <option value={PROFILES.PRECEPTOR}>{t('profileSwitcher.preceptor')}</option>
+              </select>
+              <span className="material-icons preceptor-layout-profile-switcher-arrow">expand_more</span>
+            </div>
             <button
               type="button"
               className="preceptor-layout-icon-btn"

@@ -1,4 +1,4 @@
-# ResidencyFlow — Acompanhamento de Telas
+# Axono — Acompanhamento de Telas
 
 Checklist das telas do sistema por persona. Use para acompanhar o que já foi implementado e o que falta.
 

@@ -67,7 +67,7 @@ export default function FirstAccess() {
         <div className="first-access-card">
           <div className="first-access-card-header">
             <div className="first-access-brand">
-              <img src="/logo.svg" alt="" className="first-access-logo" width="40" height="40" />
+              <img src="/logo-axono-blue.png" alt="" className="first-access-logo" width="40" height="40" />
               <div>
                 <span className="first-access-brand-title">{t('firstAccess.brandTitle')}</span>
                 <span className="first-access-brand-subtitle">{t('firstAccess.brandSubtitle')}</span>

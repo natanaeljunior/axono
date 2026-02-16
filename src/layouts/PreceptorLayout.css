@@ -32,16 +32,10 @@
   color: var(--color-primary);
 }
 
-.preceptor-layout-brand-icon {
-  font-size: 1.875rem;
-  font-weight: 700;
-}
-
-.preceptor-layout-brand-name {
-  font-weight: 700;
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
-  color: #1e293b;
+.preceptor-layout-brand-logo {
+  height: 2rem;
+  width: auto;
+  display: block;
 }
 
 .preceptor-layout-nav {
@@ -84,6 +78,45 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.preceptor-layout-profile-switcher-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.preceptor-layout-profile-switcher-icon {
+  font-size: 1.125rem !important;
+  color: var(--color-primary);
+}
+
+.preceptor-layout-profile-switcher {
+  appearance: none;
+  padding: 0.15rem 1.5rem 0.15rem 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: #334155;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  min-width: 7rem;
+}
+
+.preceptor-layout-profile-switcher-arrow {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem !important;
+  color: #94a3b8;
+  pointer-events: none;
 }
 
 .preceptor-layout-icon-btn {
