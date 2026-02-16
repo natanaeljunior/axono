@@ -272,6 +272,7 @@
         "history": "Histórico",
         "clearGrid": "Limpar Grade",
         "cellModalTitle": "Alocação — {{group}} · Bimestre {{period}}",
+        "cellModalSubtitle": "Defina o tipo de rotação, hospital e preceptor para este período.",
         "cellModalRotationType": "Tipo de rotação",
         "cellModalHospital": "Hospital",
         "cellModalPreceptor": "Preceptor"

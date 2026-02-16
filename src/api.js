@@ -5,11 +5,11 @@ const STORAGE_USER = 'axono_user'
 
 /**
  * Cliente HTTP para a API (Spring Boot).
- * Em dev, o Vite faz proxy de /api para http://localhost:8080.
+ * baseURL vem de .env: VITE_API_URL (vazio em dev = usa proxy do Vite).
  * Interceptor adiciona o token e trata 401 (sessão inválida).
  */
 export const api = axios.create({
-  baseURL: '',
+  baseURL: import.meta.env.VITE_API_URL || '',
   headers: {
     'Content-Type': 'application/json',
   },

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { groupService, rotationAssignmentService, hospitalService, preceptorService } from '../services'
+import CustomSelect from '../components/CustomSelect'
 
 const VIEW_BIMESTRAL = 'bimestral'
 const VIEW_MENSAL = 'mensal'
@@ -359,57 +360,78 @@ export default function Rotations() {
       </section>
 
       {editingCell && (
-        <div className="students-modal-overlay" onClick={closeCellEdit} role="dialog" aria-modal="true" aria-labelledby="rotations-cell-modal-title">
-          <div className="students-modal" onClick={(e) => e.stopPropagation()}>
-            <h3 id="rotations-cell-modal-title" className="students-modal-title">
-              {t('rotations.cellModalTitle', { group: displayCode(editingCell.group.code), period: editingCell.periodIndex })}
-            </h3>
-            <form onSubmit={handleSaveCell}>
-              <div className="students-modal-field">
-                <label htmlFor="cell-rotation-type">{t('rotations.cellModalRotationType')}</label>
-                <select
+        <div className="rotations-cell-modal-overlay" onClick={closeCellEdit} role="dialog" aria-modal="true" aria-labelledby="rotations-cell-modal-title">
+          <div className="rotations-cell-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="rotations-cell-modal-header">
+              <span className="rotations-cell-modal-icon" aria-hidden>
+                <span className="material-icons">calendar_view_month</span>
+              </span>
+              <h3 id="rotations-cell-modal-title" className="rotations-cell-modal-title">
+                {t('rotations.cellModalTitle', { group: displayCode(editingCell.group.code), period: editingCell.periodIndex })}
+              </h3>
+              <p className="rotations-cell-modal-subtitle">
+                {t('rotations.cellModalSubtitle')}
+              </p>
+            </div>
+            <form onSubmit={handleSaveCell} className="rotations-cell-modal-form">
+              <div className="rotations-cell-modal-field">
+                <label id="cell-rotation-type-label" htmlFor="cell-rotation-type" className="rotations-cell-modal-label">
+                  {t('rotations.cellModalRotationType')}
+                </label>
+                <CustomSelect
                   id="cell-rotation-type"
+                  className="rotations-cell-modal-select"
+                  aria-labelledby="cell-rotation-type-label"
+                  placeholder="—"
                   value={cellForm.rotationType}
-                  onChange={(e) => setCellForm((f) => ({ ...f, rotationType: e.target.value }))}
-                >
-                  <option value="">—</option>
-                  {ROTATION_TYPES.map((rt) => (
-                    <option key={rt} value={rt}>{t(`rotations.rotation.${rotationTypeToKey(rt) || rt.toLowerCase()}`)}</option>
-                  ))}
-                </select>
+                  onChange={(val) => setCellForm((f) => ({ ...f, rotationType: val }))}
+                  options={ROTATION_TYPES.map((rt) => ({
+                    value: rt,
+                    label: t(`rotations.rotation.${rotationTypeToKey(rt) || rt.toLowerCase()}`),
+                  }))}
+                />
               </div>
-              <div className="students-modal-field">
-                <label htmlFor="cell-hospital">{t('rotations.cellModalHospital')}</label>
-                <select
+              <div className="rotations-cell-modal-field">
+                <label id="cell-hospital-label" htmlFor="cell-hospital" className="rotations-cell-modal-label">
+                  {t('rotations.cellModalHospital')}
+                </label>
+                <CustomSelect
                   id="cell-hospital"
+                  className="rotations-cell-modal-select"
+                  aria-labelledby="cell-hospital-label"
+                  placeholder="—"
                   value={cellForm.hospitalId}
-                  onChange={(e) => setCellForm((f) => ({ ...f, hospitalId: e.target.value }))}
-                >
-                  <option value="">—</option>
-                  {hospitals.map((h) => (
-                    <option key={h.id} value={h.id}>{h.name}</option>
-                  ))}
-                </select>
+                  onChange={(val) => setCellForm((f) => ({ ...f, hospitalId: val }))}
+                  options={hospitals.map((h) => ({ value: h.id, label: h.name }))}
+                />
               </div>
-              <div className="students-modal-field">
-                <label htmlFor="cell-preceptor">{t('rotations.cellModalPreceptor')}</label>
-                <select
+              <div className="rotations-cell-modal-field">
+                <label id="cell-preceptor-label" htmlFor="cell-preceptor" className="rotations-cell-modal-label">
+                  {t('rotations.cellModalPreceptor')}
+                </label>
+                <CustomSelect
                   id="cell-preceptor"
+                  className="rotations-cell-modal-select"
+                  aria-labelledby="cell-preceptor-label"
+                  placeholder="—"
                   value={cellForm.preceptorId}
-                  onChange={(e) => setCellForm((f) => ({ ...f, preceptorId: e.target.value }))}
-                >
-                  <option value="">—</option>
-                  {preceptors.map((p) => (
-                    <option key={p.id} value={p.id}>{p.name}</option>
-                  ))}
-                </select>
+                  onChange={(val) => setCellForm((f) => ({ ...f, preceptorId: val }))}
+                  options={preceptors.map((p) => ({ value: p.id, label: p.name }))}
+                />
               </div>
-              <div className="students-modal-actions">
+              <div className="rotations-cell-modal-actions">
                 <button type="button" className="dashboard-btn dashboard-btn--secondary" onClick={closeCellEdit}>
                   {t('groups.modalCancel')}
                 </button>
                 <button type="submit" className="dashboard-btn dashboard-btn--primary" disabled={saving}>
-                  {saving ? t('groups.modalSaving') : t('groups.modalSave')}
+                  {saving ? (
+                    <>
+                      <span className="rotations-cell-modal-spinner" aria-hidden />
+                      {t('groups.modalSaving')}
+                    </>
+                  ) : (
+                    t('groups.modalSave')
+                  )}
                 </button>
               </div>
             </form>
