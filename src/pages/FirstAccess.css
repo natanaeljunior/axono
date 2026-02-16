@@ -79,6 +79,23 @@
   gap: 1.5rem;
 }
 
+.first-access-api-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.5rem;
+  color: #b91c1c;
+  font-size: 0.875rem;
+}
+
+.first-access-api-error .material-icons {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
 .first-access-section {
   display: flex;
   flex-direction: column;

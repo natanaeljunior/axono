@@ -59,7 +59,11 @@ export default function Login() {
       const { user } = await login(identifier, password)
       const profile = profileFromRoles(user.roles)
       setProfile(profile)
-      navigate('/dashboard', { replace: true })
+      if (user.firstAccessPending) {
+        navigate('/primeiro-acesso', { replace: true })
+      } else {
+        navigate('/dashboard', { replace: true })
+      }
     } catch (err) {
       const msg = err.response?.data?.message || err.message || 'Credenciais inválidas.'
       setError(msg)

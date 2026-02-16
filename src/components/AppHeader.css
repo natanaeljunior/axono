@@ -81,43 +81,9 @@
   min-width: 0;
 }
 
-.app-header-persona-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.75rem;
-  background: #f6f6f8;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  position: relative;
-}
-
-.app-header-persona-icon {
-  font-size: 1.125rem !important;
-  color: var(--color-primary);
-}
-
-.app-header-persona-select {
-  appearance: none;
-  padding: 0.15rem 1.5rem 0.15rem 0;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  font-family: inherit;
-  color: #334155;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  min-width: 6rem;
-}
-
-.app-header-persona-arrow {
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1rem !important;
-  color: #94a3b8;
-  pointer-events: none;
+/* PersonaSelect no header usa .app-header-persona (className) */
+.app-header-persona.persona-select {
+  flex-shrink: 0;
 }
 
 .app-header-user {

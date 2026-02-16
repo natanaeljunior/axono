@@ -44,10 +44,17 @@ export function AuthProvider({ children }) {
     setUser(null)
   }, [])
 
+  const completeFirstAccess = useCallback(async (newPassword) => {
+    const updated = await authService.completeFirstAccess({ newPassword })
+    setUser(updated)
+    localStorage.setItem(STORAGE_USER, JSON.stringify(updated))
+    return updated
+  }, [])
+
   const isAuthenticated = !!user
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated, loading }}>
+    <AuthContext.Provider value={{ user, login, logout, completeFirstAccess, isAuthenticated, loading }}>
       {children}
     </AuthContext.Provider>
   )

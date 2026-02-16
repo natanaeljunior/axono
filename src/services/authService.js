@@ -16,4 +16,13 @@ export const authService = {
   getCurrentUser() {
     return api.get('/api/auth/me').then((res) => res.data)
   },
+
+  /**
+   * Conclui o primeiro acesso (define nova senha). Requer autenticação.
+   * @param {{ newPassword: string }} payload
+   * @returns {Promise<import('../contexts/AuthContext').User>} user atualizado (firstAccessPending = false)
+   */
+  completeFirstAccess(payload) {
+    return api.post('/api/auth/complete-first-access', payload).then((res) => res.data)
+  },
 }

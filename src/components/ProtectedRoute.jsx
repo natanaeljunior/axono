@@ -2,8 +2,9 @@ import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 export default function ProtectedRoute({ children }) {
-  const { isAuthenticated, loading } = useAuth()
+  const { isAuthenticated, user, loading } = useAuth()
   const location = useLocation()
+  const isDashboard = location.pathname.startsWith('/dashboard')
 
   if (loading) {
     return (
@@ -21,6 +22,10 @@ export default function ProtectedRoute({ children }) {
 
   if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />
+  }
+
+  if (user?.firstAccessPending && isDashboard) {
+    return <Navigate to="/primeiro-acesso" replace />
   }
 
   return children

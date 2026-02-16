@@ -1,8 +1,9 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../components/LanguageSwitcher'
 import { LOGO_AXONO } from '../constants/brand'
+import { useAuth } from '../contexts/AuthContext'
 import './Login.css'
 import './FirstAccess.css'
 
@@ -20,19 +21,34 @@ function getPasswordStrength(password) {
 export default function FirstAccess() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { user: authUser, completeFirstAccess, isAuthenticated, loading: authLoading } = useAuth()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [acceptTerms, setAcceptTerms] = useState(false)
   const [touched, setTouched] = useState({ password: false, confirm: false })
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  // Dados simulados (viriam do auth/cadastro)
-  const user = {
-    fullName: 'DRA. MARIANA SILVA OLIVEIRA',
-    cpf: '***.452.188-**',
-    matricula: '2023004589',
-  }
+  // Redireciona quando o auth terminar de carregar: sem login -> login; primeiro acesso já feito -> dashboard
+  useEffect(() => {
+    if (authLoading) return
+    if (!isAuthenticated || !authUser) {
+      navigate('/login', { replace: true })
+      return
+    }
+    if (!authUser.firstAccessPending) {
+      navigate('/dashboard', { replace: true })
+    }
+  }, [authUser, isAuthenticated, authLoading, navigate])
+
+  const user = authUser
+    ? {
+        fullName: authUser.name || '',
+        matriculaCrm: authUser.matricula || authUser.crm || '—',
+      }
+    : null
 
   const strength = useMemo(() => getPasswordStrength(password), [password])
   const passwordsMatch = confirmPassword && password === confirmPassword
@@ -45,11 +61,29 @@ export default function FirstAccess() {
     passwordsMatch &&
     acceptTerms
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     if (!canSubmit) return
-    // TODO: chamar API para ativar conta
-    navigate('/login')
+    setError('')
+    setSubmitting(true)
+    try {
+      await completeFirstAccess(password)
+      navigate('/dashboard', { replace: true })
+    } catch (err) {
+      setError(err.response?.data?.message || 'Erro ao ativar conta. Tente novamente.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  if (authLoading || (authUser && !authUser.firstAccessPending)) {
+    return (
+      <div className="login-page first-access-page">
+        <div className="first-access-main" style={{ justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+          <p className="first-access-intro">Carregando...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -82,27 +116,31 @@ export default function FirstAccess() {
             <p className="first-access-intro">{t('firstAccess.intro')}</p>
 
             <form onSubmit={handleSubmit} className="first-access-form">
+              {error && (
+                <div className="first-access-api-error" role="alert">
+                  <span className="material-icons">error_outline</span>
+                  {error}
+                </div>
+              )}
               {/* Seção 1: Confirmação de identidade */}
               <section className="first-access-section">
                 <div className="first-access-step">
                   <span className="first-access-step-num">1</span>
                   <h2 className="first-access-section-title">{t('firstAccess.identityTitle')}</h2>
                 </div>
+                {user && (
                 <div className="first-access-fields">
                   <div className="first-access-field full">
                     <label>{t('firstAccess.fullName')}</label>
                     <input type="text" className="first-access-input" value={user.fullName} readOnly />
                   </div>
                   <div className="first-access-field">
-                    <label>{t('firstAccess.cpf')}</label>
-                    <input type="text" className="first-access-input" value={user.cpf} readOnly />
-                  </div>
-                  <div className="first-access-field">
                     <label>{t('firstAccess.matriculaCrm')}</label>
-                    <input type="text" className="first-access-input" value={user.matricula} readOnly />
+                    <input type="text" className="first-access-input" value={user.matriculaCrm} readOnly />
                   </div>
                 </div>
-                <p className="first-access-note">{t('firstAccess.preRegisteredNote')}</p>
+                )}
+                {user && <p className="first-access-note">{t('firstAccess.preRegisteredNote')}</p>}
               </section>
 
               {/* Seção 2: Segurança da conta */}
@@ -193,9 +231,9 @@ export default function FirstAccess() {
                   </label>
                 </div>
 
-                <button type="submit" className="first-access-submit" disabled={!canSubmit}>
-                  {t('firstAccess.submit')}
-                  <span className="material-icons">arrow_forward</span>
+                <button type="submit" className="first-access-submit" disabled={!canSubmit || submitting}>
+                  {submitting ? (t('common.comingSoon')?.replace?.('Em breve.', 'Salvando...') || 'Salvando...') : t('firstAccess.submit')}
+                  {!submitting && <span className="material-icons">arrow_forward</span>}
                 </button>
               </section>
             </form>

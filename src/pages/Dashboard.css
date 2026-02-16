@@ -295,43 +295,9 @@
   pointer-events: none;
 }
 
-.dashboard-profile-switcher-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.75rem;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  position: relative;
-}
-
-.dashboard-profile-switcher-icon {
-  font-size: 1.125rem !important;
-  color: var(--color-primary);
-}
-
-.dashboard-profile-switcher {
-  appearance: none;
-  padding: 0.15rem 1.5rem 0.15rem 0;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  font-family: inherit;
-  color: var(--color-text);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  min-width: 7rem;
-}
-
-.dashboard-profile-switcher-arrow {
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1rem !important;
-  color: var(--color-text-muted);
-  pointer-events: none;
+/* PersonaSelect no dashboard usa .dashboard-persona (className) */
+.dashboard-persona.persona-select {
+  flex-shrink: 0;
 }
 
 /* KPIs */
@@ -497,6 +463,16 @@
 
 .dashboard-btn--primary:hover {
   background: var(--color-primary-hover);
+}
+
+.dashboard-btn--danger {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+}
+
+.dashboard-btn--danger:hover:not(:disabled) {
+  background: #b91c1c;
 }
 
 .dashboard-table-wrap {
@@ -1174,6 +1150,189 @@
 
 .students-import-tip-link:hover {
   text-decoration: underline;
+}
+
+/* Modal Cadastrar/Editar Aluno */
+.students-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: students-fadeIn 0.2s ease-out;
+}
+
+@keyframes students-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.students-modal {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 28rem;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  animation: students-slideUp 0.25s ease-out;
+}
+
+@keyframes students-slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.students-modal-title {
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-display);
+}
+
+.students-modal form {
+  padding: 1.5rem;
+}
+
+.students-modal-field {
+  margin-bottom: 1rem;
+}
+
+.students-modal-field:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.students-modal-field label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.375rem;
+}
+
+.students-modal-field input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background-light);
+  color: var(--color-text);
+  font-family: inherit;
+}
+
+.students-modal-field input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.students-modal-field input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.students-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* Dialog Confirmação Excluir */
+.students-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  padding: 1rem;
+  animation: students-fadeIn 0.2s ease-out;
+}
+
+.students-dialog {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 24rem;
+  padding: 1.5rem;
+  animation: students-slideUp 0.25s ease-out;
+}
+
+.students-dialog-icon-wrap {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: #fef2f2;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.students-dialog-icon-wrap .material-icons {
+  font-size: 1.5rem;
+}
+
+.students-dialog-title {
+  margin: 0 0 0.375rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: var(--font-display);
+}
+
+.students-dialog-message {
+  margin: 0 0 1.25rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.students-dialog-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+/* Mensagem de erro / loading na seção alunos */
+.students-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #fef2f2;
+  color: #b91c1c;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.students-error .material-icons {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.students-loading {
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
 }
 
 /* ========== Gestão de Grupos ========== */
@@ -2752,6 +2911,7 @@
 }
 
 .preceptors-td--crm,
+.preceptors-td--email,
 .preceptors-td--hospital {
   font-size: 0.875rem;
   color: var(--color-text-secondary);

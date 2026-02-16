@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useProfile, PROFILES } from '../contexts/ProfileContext'
 import { useAuth } from '../contexts/AuthContext'
 import { LOGO_AXONO } from '../constants/brand'
+import PersonaSelect from '../components/PersonaSelect'
 import PreceptorLayout from './PreceptorLayout'
 import StudentLayout from './StudentLayout'
 import '../pages/Dashboard.css'
@@ -50,8 +51,8 @@ export default function DashboardLayout() {
   const navItems = getNavItems(profile)
   const showParamsSection = profile === PROFILES.COORDENACAO
 
-  const handleProfileChange = (e) => {
-    setProfile(e.target.value)
+  const handleProfileChange = (value) => {
+    setProfile(value)
     navigate('/dashboard')
   }
 
@@ -176,26 +177,13 @@ export default function DashboardLayout() {
             )}
           </div>
           <div className="dashboard-header-actions">
-            <div className="dashboard-profile-switcher-wrap">
-              <span className="material-icons dashboard-profile-switcher-icon">person</span>
-              <select
-                className="dashboard-profile-switcher"
-                value={allowed.includes(profile) ? profile : allowed[0]}
-                onChange={handleProfileChange}
-                aria-label={t('profileSwitcher.label')}
-              >
-                {allowed.includes(PROFILES.COORDENACAO) && (
-                  <option value={PROFILES.COORDENACAO}>{t('profileSwitcher.coordenacao')}</option>
-                )}
-                {allowed.includes(PROFILES.ALUNO) && (
-                  <option value={PROFILES.ALUNO}>{t('profileSwitcher.aluno')}</option>
-                )}
-                {allowed.includes(PROFILES.PRECEPTOR) && (
-                  <option value={PROFILES.PRECEPTOR}>{t('profileSwitcher.preceptor')}</option>
-                )}
-              </select>
-              <span className="material-icons dashboard-profile-switcher-arrow">expand_more</span>
-            </div>
+            <PersonaSelect
+              allowed={allowed}
+              value={allowed.includes(profile) ? profile : allowed[0]}
+              onChange={handleProfileChange}
+              aria-label={t('profileSwitcher.label')}
+              className="dashboard-persona"
+            />
             {isParams ? (
               <>
                 <button type="button" className="dashboard-btn dashboard-btn--secondary dashboard-btn--header">

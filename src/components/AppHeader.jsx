@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useProfile, PROFILES } from '../contexts/ProfileContext'
 import { useAuth } from '../contexts/AuthContext'
 import { LOGO_AXONO } from '../constants/brand'
+import PersonaSelect from './PersonaSelect'
 import './AppHeader.css'
 
 function allowedProfiles(roles) {
@@ -39,8 +40,8 @@ export default function AppHeader({ variant = 'full', navItems = [], className =
     }
   }, [allowed, profile, setProfile])
 
-  const handleProfileChange = (e) => {
-    setProfile(e.target.value)
+  const handleProfileChange = (value) => {
+    setProfile(value)
     navigate('/dashboard')
   }
 
@@ -72,26 +73,13 @@ export default function AppHeader({ variant = 'full', navItems = [], className =
         )}
 
         <div className="app-header-right">
-          <div className="app-header-persona-wrap">
-            <span className="material-icons app-header-persona-icon">person</span>
-            <select
-              className="app-header-persona-select"
-              value={allowed.includes(profile) ? profile : allowed[0]}
-              onChange={handleProfileChange}
-              aria-label={t('profileSwitcher.label')}
-            >
-              {allowed.includes(PROFILES.COORDENACAO) && (
-                <option value={PROFILES.COORDENACAO}>{t('profileSwitcher.coordenacao')}</option>
-              )}
-              {allowed.includes(PROFILES.ALUNO) && (
-                <option value={PROFILES.ALUNO}>{t('profileSwitcher.aluno')}</option>
-              )}
-              {allowed.includes(PROFILES.PRECEPTOR) && (
-                <option value={PROFILES.PRECEPTOR}>{t('profileSwitcher.preceptor')}</option>
-              )}
-            </select>
-            <span className="material-icons app-header-persona-arrow">expand_more</span>
-          </div>
+          <PersonaSelect
+            allowed={allowed}
+            value={allowed.includes(profile) ? profile : allowed[0]}
+            onChange={handleProfileChange}
+            aria-label={t('profileSwitcher.label')}
+            className="app-header-persona"
+          />
 
           {!isMinimal && (
             <div className="app-header-user">
