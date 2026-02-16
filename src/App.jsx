@@ -16,6 +16,7 @@ import PreceptorValidate from './pages/PreceptorValidate'
 import PreceptorValidateDetail from './pages/PreceptorValidateDetail'
 import PreceptorReportDetail from './pages/PreceptorReportDetail'
 import PreceptorSignReport from './pages/PreceptorSignReport'
+import PreceptorMyGroup from './pages/PreceptorMyGroup'
 import StudentReportsCertification from './pages/StudentReportsCertification'
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
         <Route path="validar-presencas/assinar/:id" element={<PreceptorSignReport />} />
         <Route path="validar-presencas/relatorio/:id" element={<PreceptorReportDetail />} />
         <Route path="validar-presencas" element={<PreceptorValidate />} />
+        <Route path="meu-grupo" element={<PreceptorMyGroup />} />
         <Route path="certificacao" element={<StudentReportsCertification />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />

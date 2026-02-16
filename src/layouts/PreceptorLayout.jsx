@@ -31,6 +31,14 @@ export default function PreceptorLayout() {
             >
               {t('dashboard.nav.preceptorValidate')}
             </NavLink>
+            <NavLink
+              to="/dashboard/meu-grupo"
+              className={({ isActive }) =>
+                `preceptor-layout-nav-link ${isActive ? 'preceptor-layout-nav-link--active' : ''}`
+              }
+            >
+              {t('preceptorHome.myGroup')}
+            </NavLink>
           </nav>
           <div className="preceptor-layout-header-right">
             <button
@@ -74,6 +82,15 @@ export default function PreceptorLayout() {
         >
           <span className="material-icons">how_to_reg</span>
           <span>{t('preceptorLayout.validateShort', 'Validar')}</span>
+        </NavLink>
+        <NavLink
+          to="/dashboard/meu-grupo"
+          className={({ isActive }) =>
+            `preceptor-layout-bottom-nav-item ${isActive ? 'preceptor-layout-bottom-nav-item--active' : ''}`
+          }
+        >
+          <span className="material-icons">groups</span>
+          <span>{t('preceptorHome.myGroup', 'Meu grupo')}</span>
         </NavLink>
         <button type="button" className="preceptor-layout-bottom-nav-item">
           <span className="material-icons">person</span>

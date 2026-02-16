@@ -4906,6 +4906,66 @@ a.params-card-action:hover {
 .preceptor-sign-report-footer-secure .material-icons { font-size: 1rem !important; color: #16a34a; }
 .preceptor-sign-report-footer-version { font-size: 0.75rem; color: var(--color-text-muted); }
 
+/* ========== Meu Grupo (Preceptor) ========== */
+.preceptor-my-group { padding-bottom: 2rem; }
+.preceptor-my-group-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem; }
+.preceptor-my-group-info { display: flex; align-items: flex-start; gap: 1rem; }
+.preceptor-my-group-icon { font-size: 2.5rem !important; color: var(--color-primary); }
+.preceptor-my-group-title { margin: 0; font-size: 1.5rem; font-weight: 700; color: var(--color-text); }
+.preceptor-my-group-rotation { margin: 0.25rem 0 0; font-size: 0.9375rem; color: var(--color-text-muted); }
+.preceptor-my-group-preceptor { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+.preceptor-my-group-preceptor-info { text-align: right; }
+.preceptor-my-group-preceptor-name { margin: 0; font-size: 1rem; font-weight: 600; color: var(--color-text); }
+.preceptor-my-group-preceptor-role { margin: 0.25rem 0 0; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.05em; color: var(--color-text-muted); }
+.preceptor-my-group-preceptor-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--slate-100); display: flex; align-items: center; justify-content: center; }
+.preceptor-my-group-preceptor-avatar .material-icons { font-size: 1.25rem !important; color: var(--color-text-muted); }
+.preceptor-my-group-badges { display: flex; gap: 0.5rem; }
+.preceptor-my-group-badge { font-size: 0.75rem; font-weight: 600; padding: 0.375rem 0.75rem; border-radius: var(--radius); }
+.preceptor-my-group-badge--pending { background: #fef3c7; color: #b45309; }
+.preceptor-my-group-badge--validate { background: var(--color-primary-10); color: var(--color-primary); }
+.preceptor-my-group-section-title { margin: 0 0 1rem; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.05em; color: var(--color-text-muted); }
+.preceptor-my-group-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+.preceptor-my-group-card { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.25rem; }
+.preceptor-my-group-card-header { display: flex; gap: 1rem; margin-bottom: 1rem; }
+.preceptor-my-group-card-avatar-wrap { position: relative; flex-shrink: 0; }
+.preceptor-my-group-card-avatar { width: 56px; height: 56px; border-radius: var(--radius); background: var(--slate-100); display: flex; align-items: center; justify-content: center; }
+.preceptor-my-group-card-avatar .material-icons { font-size: 1.75rem !important; color: var(--color-text-muted); }
+.preceptor-my-group-card-badge { position: absolute; bottom: -4px; right: -4px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; }
+.preceptor-my-group-card-badge .material-icons { font-size: 0.875rem !important; }
+.preceptor-my-group-card-badge--document { background: var(--color-primary); color: #fff; }
+.preceptor-my-group-card-badge--warning { background: #ea580c; color: #fff; }
+.preceptor-my-group-card-badge--check { background: #16a34a; color: #fff; }
+.preceptor-my-group-card-info { flex: 1; min-width: 0; }
+.preceptor-my-group-card-name { margin: 0; font-size: 1rem; font-weight: 600; color: var(--color-text); }
+.preceptor-my-group-card-ra { margin: 0.25rem 0 0; font-size: 0.8125rem; color: var(--color-text-muted); }
+.preceptor-my-group-card-progress { margin-bottom: 1rem; }
+.preceptor-my-group-card-progress-header { display: flex; justify-content: space-between; margin-bottom: 0.375rem; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.05em; color: var(--color-text-muted); }
+.preceptor-my-group-card-progress-bar { height: 8px; background: var(--slate-100); border-radius: 9999px; overflow: hidden; }
+.preceptor-my-group-card-progress-fill { height: 100%; background: var(--color-primary); border-radius: 9999px; }
+.preceptor-my-group-card-workload { margin-bottom: 1rem; font-size: 0.8125rem; color: var(--color-text-secondary); }
+.preceptor-my-group-card-workload-label { display: block; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.05em; color: var(--color-text-muted); margin-bottom: 0.125rem; }
+.preceptor-my-group-card-workload-final { font-weight: 600; color: var(--color-text); }
+.preceptor-my-group-card-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--slate-100); }
+.preceptor-my-group-card-status { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.25rem 0.5rem; border-radius: var(--radius); }
+.preceptor-my-group-card-status--sent { background: #dbeafe; color: #1d4ed8; }
+.preceptor-my-group-card-status--pending { background: #fef3c7; color: #b45309; }
+.preceptor-my-group-card-status--validated { background: #dcfce7; color: #16a34a; }
+.preceptor-my-group-card-waiting { margin: 0; font-size: 0.8125rem; color: var(--color-text-muted); }
+.preceptor-my-group-card-btn { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 600; color: #fff; background: var(--color-primary); border: none; border-radius: var(--radius); cursor: pointer; }
+.preceptor-my-group-card-btn:hover { filter: brightness(1.05); }
+.preceptor-my-group-card-btn .material-icons { font-size: 1rem !important; }
+.preceptor-my-group-card-link { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0; background: none; border: none; font-size: 0.8125rem; font-weight: 600; color: var(--color-primary); cursor: pointer; }
+.preceptor-my-group-card-link:hover { text-decoration: underline; }
+.preceptor-my-group-card-link .material-icons { font-size: 1rem !important; }
+.preceptor-my-group-load-more { margin-top: 1.5rem; text-align: center; }
+.preceptor-my-group-load-more-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; font-size: 0.875rem; color: var(--color-primary); background: none; border: none; cursor: pointer; font-weight: 500; }
+.preceptor-my-group-load-more-btn:hover { text-decoration: underline; }
+.preceptor-my-group-load-more-btn .material-icons { font-size: 1.25rem !important; }
+.preceptor-my-group-footer { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--slate-100); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+.preceptor-my-group-footer-secure { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 600; color: var(--color-text-muted); letter-spacing: 0.03em; }
+.preceptor-my-group-footer-secure .material-icons { font-size: 1rem !important; color: #16a34a; }
+.preceptor-my-group-footer-version { font-size: 0.75rem; color: var(--color-text-muted); }
+
 /* ========== Relatórios e Certificação (Aluno) ========== */
 .student-cert-layout { padding-bottom: 2rem; }
 .student-cert-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }

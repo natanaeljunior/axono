@@ -75,7 +75,11 @@ export default function PreceptorHome() {
           </span>
         </Link>
 
-        <div className="preceptor-home-action-card preceptor-home-action-card--group">
+        <button
+          type="button"
+          className="preceptor-home-action-card preceptor-home-action-card--group"
+          onClick={() => navigate('/dashboard/meu-grupo')}
+        >
           <div className="preceptor-home-action-card-icon preceptor-home-action-card-icon--green">
             <span className="material-icons">groups</span>
           </div>
@@ -87,10 +91,10 @@ export default function PreceptorHome() {
             <span className="preceptor-home-action-card-bold">10 {t('preceptorHome.studentsLabel', 'alunos')}</span>{' '}
             {t('preceptorHome.groupDescSuffix', 'sob sua supervisão na Clínica Médica.')}
           </p>
-          <button type="button" className="preceptor-home-action-card-btn preceptor-home-action-card-btn--secondary">
+          <span className="preceptor-home-action-card-btn preceptor-home-action-card-btn--secondary">
             {t('preceptorHome.viewList', 'Ver lista')}
-          </button>
-        </div>
+          </span>
+        </button>
       </section>
 
       <section className="preceptor-home-activity">
