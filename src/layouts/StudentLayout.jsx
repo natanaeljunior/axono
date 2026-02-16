@@ -88,7 +88,9 @@ export default function StudentLayout() {
       )}
 
       <main className="student-layout-main">
-        <Outlet />
+        <div className="student-layout-main-inner">
+          <Outlet />
+        </div>
       </main>
 
       {!isCertPage && (

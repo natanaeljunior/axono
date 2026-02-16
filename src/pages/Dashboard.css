@@ -5065,7 +5065,7 @@ a.params-card-action:hover {
 .preceptor-validate-summary { margin: 1rem 0 0; font-size: 0.8125rem; color: var(--color-text-muted); }
 
 /* ========== Validar Atividade (Detalhe) ========== */
-.preceptor-validate-detail { padding-bottom: 2rem; max-width: 720px; margin: 0 auto; }
+.preceptor-validate-detail { padding-bottom: 2rem; width: 100%; }
 .preceptor-validate-detail-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
 .preceptor-validate-detail-back { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); cursor: pointer; color: var(--color-text); transition: all 0.2s; flex-shrink: 0; }
 .preceptor-validate-detail-back:hover { background: var(--slate-50); }
@@ -5101,7 +5101,7 @@ a.params-card-action:hover {
 .preceptor-validate-detail-disclaimer { margin: 0; font-size: 0.75rem; color: var(--color-text-muted); text-align: center; }
 
 /* ========== Ver Detalhes do Relatório (Preceptor) ========== */
-.preceptor-report-detail { padding-bottom: 2rem; max-width: 720px; margin: 0 auto; }
+.preceptor-report-detail { padding-bottom: 2rem; width: 100%; }
 .preceptor-report-detail-header { margin-bottom: 1.5rem; }
 .preceptor-report-detail-back { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0; margin-bottom: 1rem; background: none; border: none; font-size: 0.875rem; color: var(--color-text-muted); cursor: pointer; transition: color 0.2s; }
 .preceptor-report-detail-back:hover { color: var(--color-primary); }
@@ -5146,7 +5146,8 @@ a.params-card-action:hover {
 .preceptor-report-detail-print-btn .material-icons { font-size: 1.125rem !important; }
 
 /* ========== Finalizar Relatório Diário (Assinaturas) ========== */
-.preceptor-sign-report { padding-bottom: 3rem; max-width: 960px; margin: 0 auto; }
+/* Largura segue o container do layout (igual formulário diário), sem max-width próprio */
+.preceptor-sign-report { padding-bottom: 3rem; width: 100%; }
 .preceptor-sign-report-header { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
 .preceptor-sign-report-back { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0; background: none; border: none; font-size: 0.875rem; color: var(--color-text-muted); cursor: pointer; transition: color 0.2s; }
 .preceptor-sign-report-back:hover { color: var(--color-primary); }
@@ -5337,7 +5338,7 @@ a.params-card-action:hover {
 .student-home-btn--secondary:hover { background: var(--slate-50); }
 
 /* Preceptor Home (Início Preceptor) */
-.preceptor-home { max-width: 56rem; }
+.preceptor-home { width: 100%; }
 .preceptor-home-header { margin-bottom: 1.5rem; }
 .preceptor-home-title { margin: 0 0 0.25rem; font-size: 1.25rem; font-weight: 600; color: var(--color-text); }
 .preceptor-home-subtitle { margin: 0; font-size: 0.875rem; color: var(--color-text-muted); }

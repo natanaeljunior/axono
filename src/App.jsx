@@ -18,6 +18,8 @@ import PreceptorReportDetail from './pages/PreceptorReportDetail'
 import PreceptorSignReport from './pages/PreceptorSignReport'
 import PreceptorMyGroup from './pages/PreceptorMyGroup'
 import StudentReportsCertification from './pages/StudentReportsCertification'
+import StudentRotationReport from './pages/StudentRotationReport'
+import StudentFinalCertification from './pages/StudentFinalCertification'
 import Placeholder from './pages/Placeholder'
 
 function App() {
@@ -44,6 +46,8 @@ function App() {
         <Route path="validar-presencas" element={<PreceptorValidate />} />
         <Route path="meu-grupo" element={<PreceptorMyGroup />} />
         <Route path="certificacao" element={<StudentReportsCertification />} />
+        <Route path="certificacao/relatorio/:rotationKey" element={<StudentRotationReport />} />
+        <Route path="certificacao/certificado-final" element={<StudentFinalCertification />} />
         <Route path="cronograma" element={<Placeholder title="Cronograma" />} />
         <Route path="notas" element={<Placeholder title="Notas" />} />
         <Route path="suporte" element={<Placeholder title="Suporte" />} />

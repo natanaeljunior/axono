@@ -1,6 +1,6 @@
 /* StudentHome - Dashboard aluno (layout sem sidebar) */
 .student-home-new {
-  max-width: 64rem;
+  width: 100%;
   margin: 0 auto;
 }
 

@@ -4,19 +4,25 @@
 }
 
 .student-cert-unified {
+  margin: 0;
   min-height: 100vh;
   background: #f8fafc;
   font-family: 'Inter', var(--font-display), sans-serif;
+  /* reserva espaço para o nav fixo (~altura do header) */
+  padding-top: 4.5rem;
 }
 
-/* Nav - Portal do Interno */
+/* Nav - Portal do Interno - fixo no topo da viewport, sem margem */
 .student-cert-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
   background: rgba(255,255,255,0.8);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid #e2e8f0;
   padding: 1rem 1.5rem;
-  position: sticky;
-  top: 0;
   z-index: 50;
 }
 
@@ -319,6 +325,7 @@
   box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
   position: relative;
   z-index: 1;
+  text-decoration: none;
 }
 
 .student-cert-generate-btn:hover {

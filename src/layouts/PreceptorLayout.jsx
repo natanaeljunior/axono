@@ -75,7 +75,9 @@ export default function PreceptorLayout() {
       </header>
 
       <main className="preceptor-layout-main">
-        <Outlet />
+        <div className="preceptor-layout-main-inner">
+          <Outlet />
+        </div>
       </main>
 
       <div className="preceptor-layout-bottom-nav">

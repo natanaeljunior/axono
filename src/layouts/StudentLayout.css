@@ -1,15 +1,22 @@
 /* StudentLayout - Dashboard aluno sem sidebar */
 .student-layout {
-  min-height: 100vh;
-  background: #fff;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-background-light);
   font-family: var(--font-display);
   color: #334155;
-  padding-bottom: 4rem;
 }
 
 .student-layout-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  flex-shrink: 0;
   z-index: 50;
   background: #fff;
   border-bottom: 1px solid #e5eaf2;
@@ -244,16 +251,33 @@
   flex-shrink: 0;
 }
 
+/* Área de scroll ocupa toda a largura → scrollbar no canto direito da tela */
 .student-layout-main {
-  max-width: min(96rem, 100%);
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   width: 100%;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
+/* Conteúdo centralizado, mesmo tamanho de antes */
+.student-layout-main-inner {
+  max-width: min(96rem, 100%);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  padding-top: calc(4rem + 2rem);
+  box-sizing: border-box;
+}
+
+/* Certificação / Relatório: sem header global, conteúdo colado no topo sem folga */
+.student-layout--cert-page .student-layout-main-inner {
+  padding-top: 0;
+}
+
 /* Página do formulário diário: fundo cinza como no layout de referência */
-.student-layout-main:has(.student-form-layout) {
+.student-layout-main-inner:has(.student-form-layout) {
   background: #f6f6f8;
 }
 

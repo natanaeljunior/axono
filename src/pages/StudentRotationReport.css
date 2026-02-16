@@ -51,9 +51,10 @@
 .student-report-signed-badge .material-icons { font-size: 1.125rem; }
 
 .student-report-main {
-  max-width: min(56rem, 100%);
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   padding: 2rem 1.5rem;
+  box-sizing: border-box;
 }
 
 .student-report-viewer-bar {
@@ -164,6 +165,13 @@
   font-weight: 600;
   color: var(--color-primary);
   letter-spacing: 0.04em;
+}
+
+.student-report-doc-final-badge {
+  margin: 0.5rem 0 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #059669;
 }
 
 .student-report-doc-codes {

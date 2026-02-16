@@ -84,10 +84,10 @@ export default function StudentReportsCertification() {
             </div>
             <h3 className="student-cert-cert-title">{t('studentCert.certificateTitle', 'Certificado Final')}</h3>
             <p className="student-cert-cert-desc">{t('studentCert.certificateDesc', 'Documento oficial com assinaturas digitais e carimbos de todos os ciclos cursados.')}</p>
-            <button type="button" className="student-cert-generate-btn">
+            <Link to="/dashboard/certificacao/certificado-final" className="student-cert-generate-btn">
               <span className="material-icons">picture_as_pdf</span>
               {t('studentCert.generateReport', 'Gerar Relatório Consolidado')}
-            </button>
+            </Link>
           </div>
         </header>
 
@@ -147,7 +147,7 @@ export default function StudentReportsCertification() {
                     <div className="student-cert-rotation-row"><span>{t('studentCert.hoursLabel')}:</span><span>{r.hours}</span></div>
                   )}
                 </div>
-                {r.status === 'completed' && <button type="button" className="student-cert-rotation-btn">{t('studentCert.report', 'Relatório')}</button>}
+                {r.status === 'completed' && <Link to={`/dashboard/certificacao/relatorio/${r.key}`} className="student-cert-rotation-btn">{t('studentCert.report', 'Relatório')}</Link>}
                 {r.status === 'current' && <Link to="/dashboard/formulario-diario" className="student-cert-rotation-btn student-cert-rotation-btn--primary">{t('studentCert.launchActivities', 'Lançar')}</Link>}
                 {r.status === 'pending' && <div className="student-cert-rotation-waiting">{t('studentCert.awaiting', 'Aguardando')}</div>}
               </div>
