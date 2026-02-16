@@ -61,22 +61,6 @@ export default function StudentLayout() {
             </NavLink>
           </nav>
           <div className="student-layout-header-right">
-            <div className="student-layout-search-wrap">
-              <span className="material-icons student-layout-search-icon">search</span>
-              <input
-                type="search"
-                className="student-layout-search"
-                placeholder={t('dashboard.searchPlaceholder')}
-                aria-label={t('dashboard.searchPlaceholder')}
-              />
-            </div>
-            <button
-              type="button"
-              className="student-layout-icon-btn student-layout-icon-btn--badge"
-              aria-label={t('dashboard.notifications')}
-            >
-              <span className="material-icons">notifications</span>
-            </button>
             <div className="student-layout-profile-switcher-wrap">
               <span className="material-icons student-layout-profile-switcher-icon">person</span>
               <select

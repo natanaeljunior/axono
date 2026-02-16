@@ -1,6 +1,41 @@
 import { useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+
+const COMPETENCY_KEYS = ['anamnese', 'raciocinio', 'prescricao', 'interpretacao', 'procedimentos', 'relacionamento']
+
+function buildReportFromFormData(formData, t) {
+  const competencyLabels = COMPETENCY_KEYS.filter(k => formData.competencies[k]).map(k =>
+    t(`studentForm.competency${k.charAt(0).toUpperCase() + k.slice(1)}`, k)
+  )
+  const activitiesText = formData.activities?.trim()
+  const activities = activitiesText ? activitiesText.split(/\n+/).filter(Boolean) : []
+
+  return {
+    id: formData.id || 'novo',
+    activityDate: formatDateBr(formData.date),
+    shift: `${formData.entry || '07:00'} - ${formData.exit || '19:00'}`,
+    hospitalUnit: 'Hospital das Clínicas (HCFMUSP)',
+    activities: activities.length > 0 ? activities : [t('preceptorSign.noActivities', 'Nenhuma atividade descrita')],
+    competencies: competencyLabels.length > 0 ? competencyLabels : [t('preceptorSign.none', 'Nenhuma')],
+    student: {
+      name: t('profileSwitcher.userAluno'),
+      role: t('studentLayout.internSemester'),
+      avatar: null,
+    },
+    preceptor: {
+      name: formData.preceptor || t('preceptorSign.toBeDefined', 'A definir'),
+      role: t('preceptorSign.preceptorRole', 'Médico Preceptor'),
+      avatar: null,
+    },
+  }
+}
+
+function formatDateBr(dateStr) {
+  if (!dateStr) return ''
+  const d = new Date(dateStr + 'T12:00:00')
+  return d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })
+}
 
 // Dados mockados (em produção viriam da API)
 const MOCK_REPORT = {
@@ -29,14 +64,18 @@ const MOCK_REPORT = {
 export default function PreceptorSignReport() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
   const { t } = useTranslation()
-  const report = MOCK_REPORT
+
+  const isFromStudentForm = location.pathname.includes('formulario-diario')
+  const formData = location.state?.formData
+  const report = formData ? buildReportFromFormData(formData, t) : MOCK_REPORT
 
   const [declarationChecked, setDeclarationChecked] = useState(false)
   const [studentSigned, setStudentSigned] = useState(false)
   const [preceptorSigned, setPreceptorSigned] = useState(false)
 
-  const handleBack = () => navigate(`/dashboard/validar-presencas/atividade/${id}`)
+  const handleBack = () => navigate(isFromStudentForm ? '/dashboard/formulario-diario' : `/dashboard/validar-presencas/atividade/${id}`)
   const handleClearStudent = () => setStudentSigned(false)
   const handleClearPreceptor = () => setPreceptorSigned(false)
   const handleConfirmFinalize = () => {
@@ -45,7 +84,7 @@ export default function PreceptorSignReport() {
       return
     }
     alert(t('preceptorSign.successMessage', 'Relatório finalizado e enviado com sucesso!'))
-    navigate('/dashboard/validar-presencas')
+    navigate(isFromStudentForm ? '/dashboard' : '/dashboard/validar-presencas')
   }
 
   return (
@@ -57,7 +96,7 @@ export default function PreceptorSignReport() {
           onClick={handleBack}
         >
           <span className="material-icons">arrow_back</span>
-          {t('preceptorSign.backToEditor', 'Voltar ao Editor')}
+          {isFromStudentForm ? t('preceptorSign.backToForm', 'Voltar ao Formulário') : t('preceptorSign.backToEditor', 'Voltar ao Editor')}
         </button>
         <h1 className="preceptor-sign-report-title">
           {t('preceptorSign.title', 'Finalizar Relatório Diário')}

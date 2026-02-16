@@ -63,13 +63,6 @@ export default function PreceptorLayout() {
               </select>
               <span className="material-icons preceptor-layout-profile-switcher-arrow">expand_more</span>
             </div>
-            <button
-              type="button"
-              className="preceptor-layout-icon-btn"
-              aria-label={t('dashboard.notifications')}
-            >
-              <span className="material-icons">notifications</span>
-            </button>
             <div className="preceptor-layout-user">
               <div className="preceptor-layout-user-info">
                 <p className="preceptor-layout-user-name">{t('profileSwitcher.userPreceptor')}</p>

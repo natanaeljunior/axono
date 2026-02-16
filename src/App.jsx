@@ -37,6 +37,7 @@ function App() {
         <Route path="parametros" element={<Parameters />} />
         <Route path="relatorios" element={<Reports />} />
         <Route path="formulario-diario" element={<StudentDailyForm />} />
+        <Route path="formulario-diario/assinar/:id" element={<PreceptorSignReport />} />
         <Route path="validar-presencas/atividade/:id" element={<PreceptorValidateDetail />} />
         <Route path="validar-presencas/assinar/:id" element={<PreceptorSignReport />} />
         <Route path="validar-presencas/relatorio/:id" element={<PreceptorReportDetail />} />

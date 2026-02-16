@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const COMPETENCIES = [
@@ -17,12 +18,20 @@ const LAST_RECORDS = [
 
 export default function StudentDailyForm() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [date, setDate] = useState('2023-10-16')
   const [entry, setEntry] = useState('07:00')
   const [exit, setExit] = useState('19:00')
+  const [preceptor, setPreceptor] = useState('')
   const [activities, setActivities] = useState('')
   const [competencies, setCompetencies] = useState({})
   const toggleCompetency = (key) => setCompetencies((prev) => ({ ...prev, [key]: !prev[key] }))
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    const formData = { date, entry, exit, preceptor, activities, competencies }
+    navigate('/dashboard/formulario-diario/assinar/novo', { state: { formData } })
+  }
 
   return (
     <div className="student-form-layout">
@@ -98,7 +107,7 @@ export default function StudentDailyForm() {
             </span>
           </header>
 
-          <form className="student-form-form">
+          <form className="student-form-form" onSubmit={handleSubmit}>
           <section className="student-form-section">
             <h3 className="student-form-section-title">{t('studentForm.generalInfo')}</h3>
             <div className="student-form-grid-2">
@@ -110,7 +119,7 @@ export default function StudentDailyForm() {
                 <label className="student-form-label">{t('studentForm.preceptorOfDay')}</label>
                 <div className="student-form-input-wrap student-form-input-wrap--search">
                   <span className="material-icons student-form-search-icon">search</span>
-                  <input type="text" className="student-form-input" placeholder={t('studentForm.searchPreceptor')} />
+                  <input type="text" className="student-form-input" placeholder={t('studentForm.searchPreceptor')} value={preceptor} onChange={(e) => setPreceptor(e.target.value)} />
                 </div>
               </div>
             </div>

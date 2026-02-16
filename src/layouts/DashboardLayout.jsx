@@ -195,18 +195,6 @@ export default function DashboardLayout() {
               </>
             ) : (
               <>
-                <div className="dashboard-search-wrap">
-                  <span className="material-icons dashboard-search-icon">search</span>
-                  <input
-                    type="search"
-                    className="dashboard-search"
-                    placeholder={t('dashboard.searchPlaceholder')}
-                    aria-label={t('dashboard.searchPlaceholder')}
-                  />
-                </div>
-                <button type="button" className="dashboard-icon-btn dashboard-icon-btn--badge" aria-label={t('dashboard.notifications')}>
-                  <span className="material-icons">notifications</span>
-                </button>
                 {profile === PROFILES.COORDENACAO && (
                   <div className="dashboard-cycle-select-wrap">
                     <select className="dashboard-cycle-select" aria-label={t('dashboard.cycle')}>
