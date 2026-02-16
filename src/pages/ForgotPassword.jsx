@@ -45,7 +45,6 @@ export default function ForgotPassword() {
             <div className="login-brand">
               <div className="login-brand-lockup">
                 <img src={LOGO_AXONO} alt="" className="login-brand-logo" width="48" height="48" />
-                <span className="login-brand-wordmark">{t('common.brandName')}</span>
               </div>
               <h1>{t('forgot.successTitle')}</h1>
               <p>{t('forgot.successMessage')}</p>
@@ -101,7 +100,6 @@ export default function ForgotPassword() {
           <div className="login-brand">
             <div className="login-brand-lockup">
               <img src={LOGO_AXONO} alt="" className="login-brand-logo" width="48" height="48" />
-              <span className="login-brand-wordmark">{t('common.brandName')}</span>
             </div>
             <h1>{t('forgot.title')}</h1>
             <p>{t('forgot.subtitle')}</p>

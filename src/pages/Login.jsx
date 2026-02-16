@@ -38,7 +38,6 @@ export default function Login() {
           <div className="login-brand">
             <div className="login-brand-lockup">
               <img src={LOGO_AXONO} alt="" className="login-brand-logo" width="48" height="48" />
-              <span className="login-brand-wordmark">{t('common.brandName')}</span>
             </div>
             <h1>{t('login.title')}</h1>
             <p>{t('login.subtitle')}</p>
